@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#c9ebee" />
+        </shape>
+    </item>
+    <item android:bottom="300dp">
+        <rotate
+            android:fromDegrees="0"
+            android:pivotX="0%"
+            android:pivotY="0%"
+            android:toDegrees="45">
+            <shape android:shape="rectangle">
+                <solid android:color="#1C3A4E" />
+            </shape>
+        </rotate>
+    </item>
+    <item android:top="150dp">
+        <rotate
+            android:fromDegrees="25"
+            android:pivotX="100%"
+            android:pivotY="45%"
+            android:toDegrees="45">
+            <shape android:shape="rectangle">
+                <solid android:color="#214258" />
+            </shape>
+        </rotate>
+    </item>
+    <item android:top="100dp">
+        <rotate
+            android:fromDegrees="-45"
+            android:pivotX="60%"
+            android:pivotY="45%"
+            android:toDegrees="45">
+            <shape android:shape="rectangle">
+                <solid android:color="#70BDC6" />
+            </shape>
+        </rotate>
+    </item>
+    <item android:top="100dp">
+        <rotate
+            android:fromDegrees="-25"
+            android:pivotX="90%"
+            android:pivotY="0%"
+            android:toDegrees="45">
+            <shape android:shape="rectangle">
+                <solid android:color="#b5e3e7" />
+            </shape>
+        </rotate>
+    </item>
+    <item android:top="100dp">
+        <rotate
+            android:fromDegrees="-25"
+            android:pivotX="90%"
+            android:pivotY="0%"
+            android:toDegrees="45">
+            <shape android:shape="rectangle">
+                <solid android:color="#b5e3e7" />
+            </shape>
+        </rotate>
+    </item>
+    <item android:top="200dp">
+        <rotate
+            android:fromDegrees="-35"
+            android:pivotX="90%"
+            android:pivotY="0%"
+            android:toDegrees="45">
+            <shape android:shape="rectangle">
+                <solid android:color="#D85A1B" />
+            </shape>
+        </rotate>
+    </item>
+    <item android:top="40dp">
+        <rotate
+            android:fromDegrees="-45"
+            android:pivotX="145%"
+            android:pivotY="0%"
+            android:toDegrees="45">
+            <shape android:shape="rectangle">
+                <solid android:color="#F06423" />
+            </shape>
+        </rotate>
+    </item>
+</layer-list>

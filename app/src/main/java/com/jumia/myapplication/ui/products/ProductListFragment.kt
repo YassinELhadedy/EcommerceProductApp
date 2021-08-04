@@ -7,19 +7,16 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.paging.ExperimentalPagingApi
-import com.google.gson.Gson
-import com.google.gson.internal.LinkedTreeMap
-import com.google.gson.reflect.TypeToken
 import com.jumia.myapplication.R
-import com.jumia.myapplication.domain.Product
-import com.jumia.myapplication.infrastructure.SafeApiCaller
-import com.jumia.myapplication.infrastructure.dto.JumProduct
+import com.jumia.myapplication.infrastructure.dto.JumConfiguration
 import com.jumia.myapplication.ui.util.progress.WaitingDialog
 import com.jumia.myapplication.ui.util.state.Status
 import dagger.hilt.android.AndroidEntryPoint
-import com.google.gson.JsonObject
-import com.jumia.myapplication.infrastructure.dto.AppConfigurationResponse
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 
 @ExperimentalPagingApi
@@ -41,6 +38,7 @@ class ProductListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         observer()
         productViewModel.productInfo(1)
+        getProducts()
     }
 
     private fun observer() {
@@ -48,7 +46,7 @@ class ProductListFragment : Fragment() {
             when (it?.status) {
                 Status.SUCCESS -> {
                     mWaitingDialog.dismissDialog()
-                    if (it.data is AppConfigurationResponse) {
+                    if (it.data is JumConfiguration) {
                         Toast.makeText(requireContext(), "here", Toast.LENGTH_LONG).show()
                     }
                 }
@@ -63,4 +61,14 @@ class ProductListFragment : Fragment() {
         })
     }
 
+    private fun getProducts(){
+        lifecycleScope.launch {
+            productViewModel.getProducts(
+            ).catch {
+                Toast.makeText(requireContext(), "failllled", Toast.LENGTH_LONG).show()
+            }.collectLatest {
+                Toast.makeText(requireContext(), "here222222222", Toast.LENGTH_LONG).show()
+            }
+        }
+    }
 }

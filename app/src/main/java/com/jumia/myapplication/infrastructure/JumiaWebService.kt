@@ -1,6 +1,5 @@
 package com.jumia.myapplication.infrastructure
 
-import com.jumia.myapplication.infrastructure.dto.AppConfigurationResponse
 import retrofit2.http.GET
 import retrofit2.http.Path
 
@@ -13,5 +12,5 @@ interface JumiaWebService {
     suspend fun getProductById(@Path("id") id: Int): AppResponse
 
     @GET("/configurations/")
-    suspend fun getConfiguration(): AppConfigurationResponse
+    suspend fun getConfiguration(): AppResponse
 }
