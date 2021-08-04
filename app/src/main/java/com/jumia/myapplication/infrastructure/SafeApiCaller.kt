@@ -1,5 +1,6 @@
 package com.jumia.myapplication.infrastructure
 
+import com.google.gson.Gson
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -27,4 +28,11 @@ object SafeApiCaller {
             }
         }
     }
+
+    suspend inline fun <reified T> jsonToPojo(
+        crossinline serviceCall: suspend () -> AppResponse
+    ): T = Gson().fromJson(
+        Gson().toJsonTree((safeApiCall { serviceCall.invoke() }).metadata).asJsonObject,
+        T::class.java
+    )
 }

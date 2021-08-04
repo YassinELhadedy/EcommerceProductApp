@@ -8,11 +8,19 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.paging.ExperimentalPagingApi
+import com.google.gson.Gson
+import com.google.gson.internal.LinkedTreeMap
+import com.google.gson.reflect.TypeToken
 import com.jumia.myapplication.R
 import com.jumia.myapplication.domain.Product
+import com.jumia.myapplication.infrastructure.SafeApiCaller
+import com.jumia.myapplication.infrastructure.dto.JumProduct
 import com.jumia.myapplication.ui.util.progress.WaitingDialog
 import com.jumia.myapplication.ui.util.state.Status
 import dagger.hilt.android.AndroidEntryPoint
+import com.google.gson.JsonObject
+import com.jumia.myapplication.infrastructure.dto.AppConfigurationResponse
+
 
 @ExperimentalPagingApi
 @AndroidEntryPoint
@@ -40,7 +48,7 @@ class ProductListFragment : Fragment() {
             when (it?.status) {
                 Status.SUCCESS -> {
                     mWaitingDialog.dismissDialog()
-                    if (it.data is Product) {
+                    if (it.data is AppConfigurationResponse) {
                         Toast.makeText(requireContext(), "here", Toast.LENGTH_LONG).show()
                     }
                 }

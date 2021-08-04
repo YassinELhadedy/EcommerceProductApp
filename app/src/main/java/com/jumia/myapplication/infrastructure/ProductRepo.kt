@@ -4,8 +4,6 @@ import androidx.paging.ExperimentalPagingApi
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import com.jumia.myapplication.domain.GetAllRepository
 import com.jumia.myapplication.domain.GetSuspended
 import com.jumia.myapplication.domain.Product
@@ -45,5 +43,15 @@ class ProductRepo @Inject constructor(private val service: JumiaWebService) :
     }
 
 
-    override suspend fun get(id: Int): Product = (Gson().fromJson<JumProduct>(SafeApiCaller.safeApiCall { service.getProductById(id)}.metadata as String, object : TypeToken<JumProduct>() {}.type) as JumProduct).toProduct()
+    override suspend fun get(id: Int): Product =
+        SafeApiCaller.jsonToPojo<JumProduct> {
+            service.getProductById(id)
+        }.toProduct()
+//        SafeApiCaller.jsonToPojo<JumProduct> {
+//            SafeApiCaller.safeApiCall { service.getProductById(id) }.metadata
+//        }.toProduct()
+//        Gson().fromJson(
+//        Gson().toJsonTree(SafeApiCaller.safeApiCall { service.getProductById(id) }.metadata).asJsonObject,
+//        JumProduct::class.java
+//    ).toProduct()
 }

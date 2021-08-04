@@ -12,7 +12,7 @@ data class Product(
     val maxSavingPercentage: Int,
     val price: Int,
     val special_price: Int,
-    val image: String,
+    val image: String?,
     val ratingAverage: Int,
     val rating: Rating?,
     val imageList: List<String>?,

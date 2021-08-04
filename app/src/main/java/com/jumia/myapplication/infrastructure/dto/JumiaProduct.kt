@@ -23,7 +23,7 @@ class JumProduct(
     @SerializedName("max_saving_percentage") val maxSavingPercentage: Int,
     @SerializedName("price") val price: Int,
     @SerializedName("special_price") val special_price: Int,
-    @SerializedName("image") val image: String,
+    @SerializedName("image") val image: String?,
     @SerializedName("rating_average") val ratingAverage: Int,
     @SerializedName("rating") val rating : Rating?,
     @SerializedName("image_list") val imageList: List<String>?,
@@ -38,7 +38,7 @@ class JumProduct(
     }
 
     fun toProduct(): Product = Product(
-        "sort", sku, name, brand, maxSavingPercentage, price, special_price, image, ratingAverage,rating, imageList, summary, sellerEntity
+        null, sku, name, brand, maxSavingPercentage, price, special_price, image, ratingAverage,rating, imageList, summary, sellerEntity
     )
 }
 
