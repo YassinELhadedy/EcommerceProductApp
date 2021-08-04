@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android"
+    android:opacity="opaque">
+  <item android:drawable="@color/orange" />
+
+  <item>
+    <bitmap android:src="@mipmap/ic_nana_bg_splash_pattern_image" />
+  </item>
+
+  <item
+      android:width="226dp"
+      android:height="190dp"
+      android:gravity="center_vertical|center_horizontal">
+    <bitmap android:src="@mipmap/ic_nana_splash_logo_image" />
+  </item>
+</layer-list>
