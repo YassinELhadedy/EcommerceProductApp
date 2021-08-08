@@ -1,9 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <import type="androidx.core.content.ContextCompat" />
+
+        <import type="android.text.TextUtils" />
+
+        <variable
+            name="viewmodel"
+            type="com.jumia.myapplication.ui.products.ProductViewModel" />
+
+    </data>
+<FrameLayout
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.ProductListFragment">
+    tools:context=".ui.products.ProductListFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
@@ -12,3 +27,4 @@
         android:text="@string/hello_blank_fragment" />
 
 </FrameLayout>
+</layout>

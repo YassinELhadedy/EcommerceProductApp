@@ -9,18 +9,22 @@
         android:id="@+id/productListFragment"
         android:name="com.jumia.myapplication.ui.products.ProductListFragment"
         tools:layout="@layout/fragment_product_list" >
+
         <action
-            android:id="@+id/action_popularMovieListFragment_to_movieDetailFragment"
+            android:id="@+id/action_productListFragment_to_productDetailFragment"
             app:destination="@id/productDetailFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
     <fragment
         android:id="@+id/productDetailFragment"
         android:name="com.jumia.myapplication.ui.products.ProductDetailFragment"
         tools:layout="@layout/fragment_product_detail" >
+        <argument
+            android:name="productId"
+            app:argType="integer" />
 
     </fragment>
 
