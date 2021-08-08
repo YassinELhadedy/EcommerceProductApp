@@ -15,14 +15,14 @@ import javax.inject.Inject
 
 @ExperimentalPagingApi
 @HiltViewModel
-class ProductViewModel @Inject constructor(private val productRepo: ProductRepo, private val configurationRepo: ConfigurationRepo) : ViewModel() {
+class ProductViewModel @Inject constructor(private val productRepo: ProductRepo) : ViewModel() {
     private val _productData = MutableLiveData<Resource<Any>?>(null)
     val productData: LiveData<Resource<Any>?> = _productData
 
      fun productInfo(productId: Int) = viewModelScope.launch {
         _productData.postValue(Resource.loading(null))
         kotlin.runCatching {
-            _productData.postValue(Resource.success(data = configurationRepo.get(productId)))
+            _productData.postValue(Resource.success(data = productRepo.get(productId)))
         }.getOrElse { ex ->
             _productData.postValue(
                 Resource.error(

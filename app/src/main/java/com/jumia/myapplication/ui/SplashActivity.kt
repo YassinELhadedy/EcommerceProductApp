@@ -17,18 +17,15 @@ class SplashActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel.configurationInfo(1)
         observer()
     }
     private fun observer() {
         viewModel.configurationData.observe(this, {
             when (it?.status) {
                 Status.SUCCESS -> {
-                    if (it.data is JumConfiguration) {
-                        Toast.makeText(this, "here", Toast.LENGTH_LONG).show()
+                        Toast.makeText(this, it.data?.currency?.currencySymbol, Toast.LENGTH_LONG).show()
                         Intent(this,MainActivity::class.java).apply {
                             startActivity(this)
-                        }
                     }
                 }
                 Status.ERROR -> {

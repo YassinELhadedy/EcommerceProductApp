@@ -44,7 +44,7 @@ ext {
     jsonVersion = '2.8.6'
     rxRetrofitVersion = '2.6.2'
     espressoVersion = '3.2.0'
-    coroutinesVersion = '1.4.3'
+    coroutinesVersion = '1.5.0'
     hilt_version = '2.37'
     paging_version = "3.0.1"
     koinVersion = '2.0.1'
@@ -57,7 +57,7 @@ ext {
     androidXArchTestVersion = '2.1.0'
     junitVersion = '4.13'
     dexMakerVersion = '2.12.1'
-    androidXCoreVersion = "1.2.0"
+    androidXCoreVersion = "1.4.0"
     fragmentVersion = '1.3.0-alpha07'
     androidXTestCoreVersion = '1.3.0-rc03'
     recyclerViewVersion = '1.2.0-alpha05'
@@ -69,7 +69,7 @@ ext {
 }
 
 dependencies {
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.2"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.0"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:${coroutinesVersion}"
 
     //Retrofit
@@ -93,12 +93,21 @@ dependencies {
     implementation "com.squareup.okhttp3:logging-interceptor:${okhttpVersion}"
     implementation "com.github.bumptech.glide:glide:${glideVersion}"
 
-    implementation 'androidx.core:core-ktx:1.3.2'
+    implementation 'androidx.core:core-ktx:1.6.0'
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'com.google.android.material:material:1.3.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    testImplementation 'junit:junit:4.+'
+    testImplementation "org.mockito:mockito-core:3.9.0"
+    testImplementation 'androidx.arch.core:core-testing:2.1.0'
+    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.5.0'
+    testImplementation 'junit:junit:4.13.2'
+    testImplementation 'org.mockito:mockito-inline:3.9.0'
+    // Optional -- Robolectric environment
+    testImplementation "androidx.test:core:${androidXCoreVersion}"
+    testImplementation "org.robolectric:robolectric:${robolectricVersion}"
+    testImplementation "org.hamcrest:hamcrest-all:${hamcrestVersion}"
+
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 }
