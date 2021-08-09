@@ -2,7 +2,6 @@ package com.jumia.myapplication.infrastructure
 
 import androidx.paging.ExperimentalPagingApi
 import com.jumia.myapplication.domain.Product
-import com.jumia.myapplication.infrastructure.*
 import com.jumia.myapplication.infrastructure.dto.JumConfiguration
 import com.jumia.myapplication.infrastructure.dto.JumCurrency
 import com.jumia.myapplication.infrastructure.dto.JumLanguages
