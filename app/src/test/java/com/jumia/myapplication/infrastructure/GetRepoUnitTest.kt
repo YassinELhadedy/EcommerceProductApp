@@ -194,8 +194,7 @@ class GetRepoUnitTest(private val param: SetupTestParameter<*>) {
 
                 override fun toString(): String =
                     ConfigurationRepo::class.java.simpleName
-            }
-        )
+            })
     }
 
 

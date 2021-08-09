@@ -28,7 +28,7 @@ class ProductDetailFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         viewDataBinding = FragmentProductDetailBinding.inflate(inflater, container, false).apply {
             lifecycleOwner = viewLifecycleOwner
@@ -50,12 +50,15 @@ class ProductDetailFragment : Fragment() {
                 Status.SUCCESS -> {
                     mWaitingDialog.dismissDialog()
                     if (it.data is Product) {
-                        Toast.makeText(requireContext(), "here", Toast.LENGTH_LONG).show()
                     }
                 }
                 Status.ERROR -> {
                     mWaitingDialog.dismissDialog()
-                    Toast.makeText(requireContext(), ErrorMessageFactory.create(requireActivity(),it.data as Throwable), Toast.LENGTH_LONG).show()
+                    Toast.makeText(
+                        requireContext(),
+                        ErrorMessageFactory.create(requireActivity(), it.data as Throwable),
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
                 Status.LOADING -> {
                     mWaitingDialog.showDialog()

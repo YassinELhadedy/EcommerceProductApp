@@ -100,7 +100,6 @@ class ProductListFragment : Fragment(), OnItemClickListener {
             ).catch {
                 Toast.makeText(requireContext(), ErrorMessageFactory.create(requireActivity(),it), Toast.LENGTH_LONG).show()
             }.collectLatest {
-                Toast.makeText(requireContext(), "succs2", Toast.LENGTH_LONG).show()
                 adapter.submitData(it)
                 adapter.notifyDataSetChanged()
             }
