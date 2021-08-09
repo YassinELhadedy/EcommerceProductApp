@@ -23,7 +23,6 @@ class SplashActivity : AppCompatActivity() {
         viewModel.configurationData.observe(this, {
             when (it?.status) {
                 Status.SUCCESS -> {
-                        Toast.makeText(this, "succs1", Toast.LENGTH_LONG).show()
                         Intent(this, MainActivity::class.java).apply {
                             startActivity(this)
                             finish()
