@@ -4,10 +4,10 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
 import androidx.paging.ExperimentalPagingApi
 import com.jumia.myapplication.infrastructure.ConfigurationRepo
-import com.jumia.myapplication.infrastructure.InfrastructureException
 import com.jumia.myapplication.infrastructure.dto.JumConfiguration
 import com.jumia.myapplication.infrastructure.dto.JumCurrency
 import com.jumia.myapplication.infrastructure.dto.JumSupport
+import com.jumia.myapplication.ui.splash.ConfigurationViewModel
 import com.jumia.myapplication.ui.util.state.Resource
 import com.mindorks.kotlinFlow.utils.TestCoroutineRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi

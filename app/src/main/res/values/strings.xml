@@ -3,5 +3,8 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="waiting_message">Please Wait…</string>
+    <string name="error_happen_try_again">Something went wrong</string>
+    <string name="not_authorized_error_happen_try_again">please call support team</string>
+    <string name="not_found_error_happen_try_again">Product not found</string>
 
 </resources>

@@ -6,7 +6,7 @@ import androidx.paging.PagingState
 
 
 abstract class AbstractPagingSource<U : Any> {
-    open var STARTING_PAGE_INDEX = 0
+    open var STARTING_PAGE_INDEX = 1
 
     @ExperimentalPagingApi
     fun getPagingSource(): PagingSource<Int, U> {

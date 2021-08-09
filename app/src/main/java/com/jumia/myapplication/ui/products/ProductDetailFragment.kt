@@ -11,6 +11,7 @@ import androidx.navigation.fragment.navArgs
 import androidx.paging.ExperimentalPagingApi
 import com.jumia.myapplication.databinding.FragmentProductDetailBinding
 import com.jumia.myapplication.domain.Product
+import com.jumia.myapplication.ui.exception.ErrorMessageFactory
 import com.jumia.myapplication.ui.util.progress.WaitingDialog
 import com.jumia.myapplication.ui.util.state.Status
 import dagger.hilt.android.AndroidEntryPoint
@@ -39,7 +40,6 @@ class ProductDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val safeArgs: ProductDetailFragmentArgs by navArgs()
-        Toast.makeText(requireContext(),safeArgs.productId.toString(),Toast.LENGTH_LONG).show()
         observer()
         productViewModel.productInfo(safeArgs.productId)
     }
@@ -55,7 +55,7 @@ class ProductDetailFragment : Fragment() {
                 }
                 Status.ERROR -> {
                     mWaitingDialog.dismissDialog()
-                    Toast.makeText(requireContext(), it.message, Toast.LENGTH_LONG).show()
+                    Toast.makeText(requireContext(), ErrorMessageFactory.create(requireActivity(),it.data as Throwable), Toast.LENGTH_LONG).show()
                 }
                 Status.LOADING -> {
                     mWaitingDialog.showDialog()

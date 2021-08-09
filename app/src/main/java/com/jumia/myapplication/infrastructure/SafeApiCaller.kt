@@ -1,9 +1,13 @@
 package com.jumia.myapplication.infrastructure
 
 import com.google.gson.Gson
+import com.jumia.myapplication.domain.NotFoundException
+import com.jumia.myapplication.domain.UnauthorizedException
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import retrofit2.HttpException
+import java.io.IOException
 
 object SafeApiCaller {
 
@@ -24,7 +28,27 @@ object SafeApiCaller {
                     throw InfrastructureException("service not found")
                 }
             } catch (throwable: Throwable) {
-                throw InfrastructureException(throwable)
+                when (throwable) {
+                    is IOException -> {
+                        throw NetworkException(throwable)
+                    }
+                    is HttpException -> {
+                        when (throwable.code()) {
+                            404 -> {
+                                throw NotFoundException(throwable)
+                            }
+                            401 -> {
+                                throw UnauthorizedException(throwable)
+                            }
+                            else -> {
+                                throw InfrastructureException(throwable)
+                            }
+                        }
+                    }
+                    else -> {
+                        throw InfrastructureException(throwable)
+                    }
+                }
             }
         }
     }

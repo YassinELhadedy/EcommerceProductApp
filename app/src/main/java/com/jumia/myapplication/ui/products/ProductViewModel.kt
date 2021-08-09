@@ -5,11 +5,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.ExperimentalPagingApi
+import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import com.jumia.myapplication.infrastructure.ConfigurationRepo
+import com.jumia.myapplication.domain.Product
 import com.jumia.myapplication.infrastructure.ProductRepo
 import com.jumia.myapplication.ui.util.state.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -27,11 +29,11 @@ class ProductViewModel @Inject constructor(private val productRepo: ProductRepo)
             _productData.postValue(
                 Resource.error(
                     ex.message ?: "Error Occurred!",
-                    null
+                    ex
                 )
             )
         }
     }
 
-    fun getProducts() = productRepo.getAllWithPagination().cachedIn(viewModelScope)
+    fun getProducts(): Flow<PagingData<Product>> = productRepo.getAllWithPagination().cachedIn(viewModelScope)
 }

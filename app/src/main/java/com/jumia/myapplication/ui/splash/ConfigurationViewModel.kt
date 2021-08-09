@@ -1,4 +1,4 @@
-package com.jumia.myapplication.ui
+package com.jumia.myapplication.ui.splash
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

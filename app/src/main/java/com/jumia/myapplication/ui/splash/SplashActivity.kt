@@ -1,4 +1,4 @@
-package com.jumia.myapplication.ui
+package com.jumia.myapplication.ui.splash
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,7 +6,7 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.paging.ExperimentalPagingApi
-import com.jumia.myapplication.infrastructure.dto.JumConfiguration
+import com.jumia.myapplication.ui.MainActivity
 import com.jumia.myapplication.ui.util.state.Status
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -23,9 +23,10 @@ class SplashActivity : AppCompatActivity() {
         viewModel.configurationData.observe(this, {
             when (it?.status) {
                 Status.SUCCESS -> {
-                        Toast.makeText(this, it.data?.currency?.currencySymbol, Toast.LENGTH_LONG).show()
-                        Intent(this,MainActivity::class.java).apply {
+                        Toast.makeText(this, "succs1", Toast.LENGTH_LONG).show()
+                        Intent(this, MainActivity::class.java).apply {
                             startActivity(this)
+                            finish()
                     }
                 }
                 Status.ERROR -> {
