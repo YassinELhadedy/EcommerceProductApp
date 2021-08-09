@@ -12,6 +12,7 @@ import androidx.paging.ExperimentalPagingApi
 import com.jumia.myapplication.databinding.FragmentProductDetailBinding
 import com.jumia.myapplication.domain.Product
 import com.jumia.myapplication.ui.exception.ErrorMessageFactory
+import com.jumia.myapplication.ui.products.adapter.ImagePagerAdapter
 import com.jumia.myapplication.ui.util.progress.WaitingDialog
 import com.jumia.myapplication.ui.util.state.Status
 import dagger.hilt.android.AndroidEntryPoint
@@ -23,6 +24,8 @@ class ProductDetailFragment : Fragment() {
     private val productViewModel: ProductViewModel by activityViewModels()
     private val mWaitingDialog: WaitingDialog by lazy { WaitingDialog(requireActivity()) }
     private lateinit var viewDataBinding: FragmentProductDetailBinding
+    // Creating Object of ViewPagerAdapter
+    private lateinit var mViewPagerAdapter: ImagePagerAdapter
 
     @ExperimentalPagingApi
     override fun onCreateView(
@@ -44,12 +47,18 @@ class ProductDetailFragment : Fragment() {
         productViewModel.productInfo(safeArgs.productId)
     }
 
+    fun initViewPager(images:List<String>){
+        mViewPagerAdapter = ImagePagerAdapter(requireActivity(), images)
+        viewDataBinding.viewpager.adapter = mViewPagerAdapter
+    }
+
     private fun observer() {
         productViewModel.productData.observe(viewLifecycleOwner, {
             when (it?.status) {
                 Status.SUCCESS -> {
                     mWaitingDialog.dismissDialog()
                     if (it.data is Product) {
+                        initViewPager(it.data.imageList?: emptyList())
                     }
                 }
                 Status.ERROR -> {
