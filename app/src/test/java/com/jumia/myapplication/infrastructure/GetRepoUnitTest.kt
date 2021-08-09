@@ -33,7 +33,7 @@ private const val DATA_ERROR = "service not found"
 class GetRepoUnitTest(private val param: SetupTestParameter<*>) {
 
     @Test
-    fun addition_isCorrect() {
+    fun testGetWithSuccessFilterFromRepository() {
         // parameter use in a test
         runBlocking {
             val testParameter = param.setup()
@@ -48,7 +48,7 @@ class GetRepoUnitTest(private val param: SetupTestParameter<*>) {
     }
 
     @Test
-    fun testGetAllWithFaultyPaginationFromRepository() {
+    fun testGetWithFaultyFilterFromRepository() {
         runBlocking {
             val testParameter = param.setup()
 

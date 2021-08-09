@@ -59,7 +59,7 @@ class ConfigurationViewModelTest {
 
     @ExperimentalPagingApi
     @Test
-    fun givenServerResponse200_whenFetch_shouldReturnSuccess2() {
+    fun givenServerResponse200_whenFetch_And_Null_Data_shouldReturnSuccess2() {
         testCoroutineRule.runBlockingTest {
             Mockito.doReturn(
                 null
