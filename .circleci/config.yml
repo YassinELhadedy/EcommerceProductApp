@@ -3,7 +3,7 @@ jobs:  #Each job represents a phase in your Build-Test-Deploy process
   build:
     working_directory: ~/src
     docker:
-      - image: circleci/android:api-30-alpha #Android 9
+      - image: circleci/android:api-29-node #Android 9
     environment:
       JVM_OPTS: -Xmx3200m
     steps:
