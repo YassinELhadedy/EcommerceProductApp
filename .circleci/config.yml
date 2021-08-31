@@ -1,4 +1,4 @@
-version: 2.1 #version of CircleCI that
+version: 2 #version of CircleCI that
 jobs:  #Each job represents a phase in your Build-Test-Deploy process
   build:
     working_directory: ~/src
