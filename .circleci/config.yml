@@ -9,9 +9,9 @@ references:
     working_directory: *workspace
     docker:
       - image: circleci/android:api-30-alpha
-          auth:
+        auth:
             username: yassinelhadedy
-            password: ziadyasooo123
+            password: $DOCKERHUB_PASSWORD
     environment:
       TERM: dumb
       _JAVA_OPTIONS: "-Xmx3200m"
