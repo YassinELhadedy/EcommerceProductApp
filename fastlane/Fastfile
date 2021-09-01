@@ -44,10 +44,13 @@ platform :android do
   lane :instrumentation_tests_testlab do
     assemble
     run_tests_firebase_testlab(
-      project_id: "ecommerce-35eeb",
-      model: "Samsung",
-      version: "26",
-      delete_firebase_files: true)
+        project_id: "ecommerce-35eeb",
+        devices: [
+          {
+            model: "Nexus6P",
+            version: "27"
+          }
+        ])
   end
 
   desc "Submit a new Beta Build to Crashlytics"
