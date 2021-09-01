@@ -40,6 +40,15 @@ android {
     dataBinding {
         enabled = true
     }
+    testOptions {
+        unitTests {
+            // Any other configurations
+
+            all {
+                maxHeapSize = "1024m"
+            }
+        }
+    }
 }
 
 ext {
