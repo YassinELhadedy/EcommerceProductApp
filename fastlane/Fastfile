@@ -47,8 +47,8 @@ platform :android do
         project_id: "ecommerce-35eeb",
         devices: [
           {
-            model: "Nexus6P",
-            version: "27"
+            model: "LEO-BX9",
+            version: "sawfish/26"
           }
         ])
   end
