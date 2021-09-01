@@ -40,22 +40,13 @@ platform :android do
     gradle(task: "test", build_type: @build_type)
   end
 
-  desc "Run instrumentation tests"
-  lane :instrumentation_tests do
-    automated_test_emulator_run(
-      AVD_setup_path: "fastlane/AVD_setup.json",
-      AVD_recreate_new: false,
-      AVD_clean_after: false,
-      gradle_task: "connectedDebugAndroidTest")
-  end
-
   desc "Run instrumentation tests in Firebase Test Lab"
   lane :instrumentation_tests_testlab do
     assemble
     run_tests_firebase_testlab(
       project_id: "project-id",
-      model: "Nexus6P",
-      version: "27",
+      model: "Samsung",
+      version: "26",
       delete_firebase_files: true)
   end
 
