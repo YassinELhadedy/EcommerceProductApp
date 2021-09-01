@@ -8,8 +8,10 @@ references:
   android_config: &android_config
     working_directory: *workspace
     docker:
-      - image: circleci/android:api-30-alpha
-    environment:
+     - image: circleci/android:api-30-alpha
+       auth:
+        username: yassinelhadedy
+        password: $DOCKERHUB_PASSWORD  # context / project UI env-var referenc    environment:
       TERM: dumb
       _JAVA_OPTIONS: "-Xmx3200m"
       GRADLE_OPTS: '-Dorg.gradle.jvmargs="-Xmx2048m"'
