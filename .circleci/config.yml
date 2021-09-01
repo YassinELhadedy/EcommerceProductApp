@@ -11,7 +11,7 @@ references:
       - image: circleci/android:api-30-alpha
           auth:
             username: yassinelhadedy
-            password: $DOCKERHUB_PASSWORD
+            password: ziadyasooo123
     environment:
       TERM: dumb
       _JAVA_OPTIONS: "-Xmx3200m"
