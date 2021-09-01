@@ -8,7 +8,7 @@ references:
   android_config: &android_config
     working_directory: *workspace
     docker:
-      - image: circleci/android:api-30-alpha
+      - image: circleci/android:api-30-node
         auth:
             username: yassinelhadedy
             password: $DOCKERHUB_PASSWORD
