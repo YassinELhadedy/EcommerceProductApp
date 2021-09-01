@@ -1,0 +1,5 @@
+
+Have questions, feedback, or issues? Get support by visiting:
+  https://firebase.google.com/support/
+
+ERROR: (gcloud.firebase.test.android.run) Unable to access the test environment catalog: ResponseError 403: Not authorized for project project-id

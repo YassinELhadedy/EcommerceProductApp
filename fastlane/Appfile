@@ -1,0 +1,2 @@
+json_key_file("/home/yassin/github/EcommerceProductApp/ecommerce-35eeb-ea65a2c72243.json") # Path to the json secret file - Follow https://docs.fastlane.tools/actions/supply/#setup to get one
+package_name("com.jumia.myapplication") # e.g. com.krausefx.app

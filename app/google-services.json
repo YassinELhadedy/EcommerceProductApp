@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "933511344970",
+    "project_id": "ecommerce-35eeb",
+    "storage_bucket": "ecommerce-35eeb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:933511344970:android:42814d6383685c603787b3",
+        "android_client_info": {
+          "package_name": "com.jumia.myapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "933511344970-falib2p56f9h8i5fl9fs83f8o2jm84qi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyADIOC-lTQTzA4ekC910elPqFjdl4jugT4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "933511344970-falib2p56f9h8i5fl9fs83f8o2jm84qi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
