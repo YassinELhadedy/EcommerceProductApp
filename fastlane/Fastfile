@@ -50,7 +50,7 @@ platform :android do
             model: "LEO-BX9",
             version: "sawfish/26"
           }
-        ])
+        ],delete_firebase_files: true)
   end
 
   desc "Submit a new Beta Build to Crashlytics"
