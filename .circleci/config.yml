@@ -105,7 +105,6 @@ jobs:
           path: firebase/
           destination: /firebase/
 
-
   upload_appcenter:
     <<: *android_config
     steps:
