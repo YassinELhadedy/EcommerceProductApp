@@ -64,7 +64,7 @@ platform :android do
     assemble
     appcenter_upload(
       api_token: "cb9435996eb47174f1b2c71cf1f7a34800f2202c",
-      owner_name: "yassin elhadidy",
+      owner_name: "yassinelhadidy-gmail.com",
       owner_type: "user", # Default is user - set to organization for appcenter organizations
       app_name: "Ecommerce",
       file: $GRADLE_APK_OUTPUT_PATH,
