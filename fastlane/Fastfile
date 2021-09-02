@@ -67,7 +67,7 @@ platform :android do
       owner_name: "yassinelhadidy-gmail.com",
       owner_type: "user", # Default is user - set to organization for appcenter organizations
       app_name: "Jumia-App",
-      file: "app/build/outputs/apk/#debug/release/app-#debug-release.apk",
+      file: $GRADLE_APK_OUTPUT_PATH,
       notify_testers: true # Set to false if you don't want to notify testers of your new release (default: `false`)
     )
   end
