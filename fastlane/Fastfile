@@ -63,11 +63,11 @@ platform :android do
   lane :deploy_to_appcenter do
     assemble
     appcenter_upload(
-      api_token: "cb9435996eb47174f1b2c71cf1f7a34800f2202c",
+      api_token: "54756a2ac3f2cb0048169d4b4ae6acb7d5a68063",
       owner_name: "yassinelhadidy-gmail.com",
       owner_type: "user", # Default is user - set to organization for appcenter organizations
-      app_name: "Ecommerce",
-      file: $GRADLE_APK_OUTPUT_PATH,
+      app_name: "Jumia-App",
+      file: "app/build/outputs/apk/#debug/release/app-#debug-release.apk",
       notify_testers: true # Set to false if you don't want to notify testers of your new release (default: `false`)
     )
   end
