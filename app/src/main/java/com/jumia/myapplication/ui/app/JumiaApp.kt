@@ -11,7 +11,7 @@ class JumiaApp(): Application(){
     override fun onCreate() {
         super.onCreate()
         AppCenter.start(
-           this, "4accee15-1036-41cb-ac1f-05f44c30ae07",
+           this, "722828e5-c9f7-4cbf-8889-6dbd6218ad49",
             Analytics::class.java, Crashes::class.java
         )
     }
