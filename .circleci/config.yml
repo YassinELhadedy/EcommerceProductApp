@@ -135,12 +135,30 @@ jobs:
           name: Deploy to Play Store
           command: bundle exec fastlane deploy_to_play_store
 
+    ## Deploy to Appcenter
+  deploy_app_center:
+    <<: *android_config
+    steps:
+      - checkout
+      - *restore_gradle_cache
+      - *restore_gems_cache
+      - *ruby_dependencies
+      - *android_dependencies
+      - *save_gradle_cache
+      - *save_gems_cache
+      - run:
+          name: Deploy to AppCenter
+          command: bundle exec fastlane deploy_to_appcenter
+
 workflows:
   version: 2
   workflow:
     jobs:
       - test_unit
       - test_instrumentation:
+          requires:
+            - test_unit
+      - deploy_app_center:
           requires:
             - test_unit
       - deploy_crashlytics:
