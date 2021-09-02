@@ -79,7 +79,7 @@ ext {
     espressoVersion = '3.3.0-rc03'
     archTestingVersion = '2.1.0'
     pagingVersion = '3.0.0-alpha04'
-
+    appCenterSdkVersion = '4.1.0'
 }
 
 dependencies {
@@ -99,8 +99,12 @@ dependencies {
     implementation "androidx.navigation:navigation-ui-ktx:${navigationVersion}"
 
     //hilt
-   implementation "com.google.dagger:hilt-android:$hilt_version"
+    implementation "com.google.dagger:hilt-android:$hilt_version"
     kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
+
+    implementation "com.microsoft.appcenter:appcenter-analytics:${appCenterSdkVersion}"
+    implementation "com.microsoft.appcenter:appcenter-crashes:${appCenterSdkVersion}"
+
 
     // Network
     implementation "com.squareup.okhttp3:okhttp:${okhttpVersion}"
