@@ -53,10 +53,23 @@ platform :android do
         ],delete_firebase_files: true)
   end
 
-  desc "Submit a new Beta Build to Crashlytics"
+ desc "Submit a new Beta Build to Crashlytics"
   lane :deploy_to_crashlytics do
     assemble_build
     crashlytics
+  end
+
+  desc "Upload Apk to App Center"
+  lane :deploy_to_appcenter do
+    assemble
+    appcenter_upload(
+      api_token: "cb9435996eb47174f1b2c71cf1f7a34800f2202c",
+      owner_name: "yassin elhadidy",
+      owner_type: "user", # Default is user - set to organization for appcenter organizations
+      app_name: "Ecommerce",
+      file: $GRADLE_APK_OUTPUT_PATH,
+      notify_testers: true # Set to false if you don't want to notify testers of your new release (default: `false`)
+    )
   end
 
   desc "Deploy a new version to the Google Play"
