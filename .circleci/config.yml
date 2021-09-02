@@ -105,7 +105,8 @@ jobs:
           path: firebase/
           destination: /firebase/
 
-  upload_appcenter:
+  ## Deploy to Crashlytics Beta
+  deploy_crashlytics:
     <<: *android_config
     steps:
       - checkout
@@ -116,39 +117,23 @@ jobs:
       - *save_gradle_cache
       - *save_gems_cache
       - run:
-          name: Run unit tests
-          command: bundle exec fastlane deploy_to_appcenter
+          name: Deploy to Crashlytics Beta
+          command: bundle exec fastlane deploy_to_crashlytics
 
-
-    ## Deploy to Crashlytics Beta
-    deploy_crashlytics:
-      <<: *android_config
-      steps:
-        - checkout
-        - *restore_gradle_cache
-        - *restore_gems_cache
-        - *ruby_dependencies
-        - *android_dependencies
-        - *save_gradle_cache
-        - *save_gems_cache
-        - run:
-            name: Deploy to Crashlytics Beta
-            command: bundle exec fastlane deploy_to_crashlytics
-
-    ## Deploy to Play Store
-    deploy_play_store:
-      <<: *android_config
-      steps:
-        - checkout
-        - *restore_gradle_cache
-        - *restore_gems_cache
-        - *ruby_dependencies
-        - *android_dependencies
-        - *save_gradle_cache
-        - *save_gems_cache
-        - run:
-            name: Deploy to Play Store
-            command: bundle exec fastlane deploy_to_play_store
+  ## Deploy to Play Store
+  deploy_play_store:
+    <<: *android_config
+    steps:
+      - checkout
+      - *restore_gradle_cache
+      - *restore_gems_cache
+      - *ruby_dependencies
+      - *android_dependencies
+      - *save_gradle_cache
+      - *save_gems_cache
+      - run:
+          name: Deploy to Play Store
+          command: bundle exec fastlane deploy_to_play_store
 
 workflows:
   version: 2
@@ -156,9 +141,6 @@ workflows:
     jobs:
       - test_unit
       - test_instrumentation:
-          requires:
-            - test_unit
-      - upload_appcenter:
           requires:
             - test_unit
       - deploy_crashlytics:
