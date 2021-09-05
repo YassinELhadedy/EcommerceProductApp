@@ -27,9 +27,9 @@ Prerequisites for android studio:
 # User Stories
 The following required functionality is completed:
 
-As a User(runner), I want to be able to log-in to the application to start trip and manage shipments.
-Upon User(runner)logging-in request run data sheet from System.
-As a User(runner) I want to be able to view run-sheet details.
+As a User(shopper), I want to be able to see all Products items shown.
+As a User(shopper) I want to be able to view product item detail details.
+As a User(shopper) I want to be able to search for specific product item and filter by specific category.(will be added soon)
 
  
 # To run the enviroment using Vagrant Up & linux (ubuntu)
