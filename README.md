@@ -7,7 +7,7 @@ Prerequisites for android studio:
 1- Recycler View.
 2- Retrofit.
 3- Cucumber (will added if u need to see complete sample please go to https://github.com/YassinELhadedy/Build-Android-App-Sample1-CompleteCycle ).
-4- Dagger -Hilt
+4- Dagger-Hilt
 5- Mockito Junit
 6- Esspresso UI Test (will added if u need to see complete sample please go to https://github.com/YassinELhadedy/Build-Android-App-Sample1-CompleteCycle ).
 7- Robolectric unit test (Parameterized)
@@ -19,9 +19,10 @@ Prerequisites for android studio:
 13-Navigation graph
 14-MVVM-Databinding
 15-CI/CD (Circle-CI & Fastlane) please pimg me to invite u to dashboard
-16-TestCoverage (SonarQube) please pimg me to invite u to dashboard
-17-FireBaseTestLab
-17-Dynamic delivery (will added if u need to see complete sample please goto  https://github.com/googlecodelabs/android-dynamic-features)
+16-Publish on AppCenter and Google-Play
+17-TestCoverage (SonarQube) please pimg me to invite u to dashboard
+18-FireBaseTestLab
+19-Dynamic delivery (will added if u need to see complete sample please goto  https://github.com/googlecodelabs/android-dynamic-features)
 
 # User Stories
 The following required functionality is completed:
