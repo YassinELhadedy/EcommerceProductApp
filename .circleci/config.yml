@@ -1,4 +1,4 @@
-version: 2
+version: 2.1
 references:
   ## Workspaces
   workspace: &workspace
@@ -165,6 +165,21 @@ jobs:
           name: Deploy to AppCenter
           command: bundle exec fastlane deploy_to_appcenter
 
+  build_sonarqube_build:
+    docker:
+      - image: 'circleci/openjdk:11-jdk'
+    steps:
+      - checkout
+      - *restore_gradle_cache
+      - *restore_gems_cache
+      - *ruby_dependencies
+      - *android_dependencies
+      - *save_gradle_cache
+      - *save_gems_cache
+      - run:
+          name: Analyze on SonarCloud
+          command: gradle build sonarqube"
+
   sonarqube_build:
     <<: *android_config
     steps:
@@ -179,13 +194,14 @@ jobs:
 #      - *cache_gradle_packages
       - run:
           name: Sonarqube Build
-          command: ./gradlew build sonarqube -Dsonar.host.url=$SONAR_HOST_URL -Dsonar.login=$SONAR_TOKEN
+          command: ./gradlew sonarqube -Dsonar.host.url=$SONAR_HOST_URL -Dsonar.login=$SONAR_TOKEN
 
 workflows:
-  version: 2
-  workflow:
+  build_and_test:
     jobs:
       - sonarqube_build
+              context: SonarCloud
+
 #      - test_instrumentation:
 #          requires:
 #            - test_unit

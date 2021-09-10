@@ -12,7 +12,7 @@ apply plugin: "androidx.navigation.safeargs.kotlin"
 
 sonarqube {
     properties {
-//        property "sonar.host.url", "https://sonarcloud.io/"
+        property "sonar.host.url", "https://sonarcloud.io/"
         property "sonar.projectKey", "YassinELhadedy_EcommerceProductApp"
         property "sonar.projectName", "EcommerceProductApp"
         property "sonar.organization", "yassinelhadedy"
