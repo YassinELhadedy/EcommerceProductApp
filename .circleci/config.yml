@@ -165,25 +165,25 @@ jobs:
           name: Deploy to AppCenter
           command: bundle exec fastlane deploy_to_appcenter
 
- sonarqube_build:
-   <<: *android_config
-   steps:
-    - checkout
-    - *restore_gradle_cache
-    - *restore_gems_cache
-    - *ruby_dependencies
-    - *android_dependencies
-    - *save_gradle_cache
-    - *save_gems_cache
-    - *cache_sonarQube_packages
-    - *cache_gradle_packages
-    - run:
-       name: Sonarqube Build
-       env:
-         GITHUB_TOKEN: $GITHUB_TOKEN   # Needed to get PR information, if any
-         SONAR_TOKEN: $SONAR_TOKEN
-         SONAR_HOST_URL: $SONAR_HOST_URL
-       command: ./gradlew build sonarqube
+  sonarqube_build:
+    <<: *android_config
+    steps:
+      - checkout
+      - *restore_gradle_cache
+      - *restore_gems_cache
+      - *ruby_dependencies
+      - *android_dependencies
+      - *save_gradle_cache
+      - *save_gems_cache
+      - *cache_sonarQube_packages
+      - *cache_gradle_packages
+      - run:
+          name: Sonarqube Build
+          env:
+            GITHUB_TOKEN: $GITHUB_TOKEN   # Needed to get PR information, if any
+            SONAR_TOKEN: $SONAR_TOKEN
+            SONAR_HOST_URL: $SONAR_HOST_URL
+          command: ./gradlew build sonarqube
 
 workflows:
   version: 2
