@@ -179,7 +179,7 @@ jobs:
 #      - *cache_gradle_packages
       - run:
           name: Sonarqube Build
-          command: ./gradlew build sonarqube
+          command: ./gradlew build sonarqube -Dsonar.host.url=$SONAR_HOST_URL -Dsonar.login=$SONAR_TOKEN
 
 workflows:
   version: 2
