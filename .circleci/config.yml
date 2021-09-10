@@ -220,11 +220,11 @@ workflows:
   main:
     jobs:
       - test_unit
-      - test_unit_sonar
-      - sonarqube_build:
-           requires:
-              - test_unit
-              - test_unit_sonar
+#      - test_unit_sonar
+#      - sonarqube_build:
+#           requires:
+#              - test_unit
+#              - test_unit_sonar
 #            context: SonarCloud
 #      - test_instrumentation:
 #          requires:
