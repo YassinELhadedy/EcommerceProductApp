@@ -200,7 +200,7 @@ workflows:
   main:
     jobs:
       - build_sonarqube_build
-            context: SonarCloud
+#            context: SonarCloud
 #      - test_instrumentation:
 #          requires:
 #            - test_unit
