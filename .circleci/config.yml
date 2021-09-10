@@ -190,8 +190,8 @@ jobs:
       - *android_dependencies
       - *save_gradle_cache
       - *save_gems_cache
-#      - *cache_sonarQube_packages
-#      - *cache_gradle_packages
+      #      - *cache_sonarQube_packages
+      #      - *cache_gradle_packages
       - run:
           name: Sonarqube Build
           command: ./gradlew sonarqube -Dsonar.host.url=$SONAR_HOST_URL -Dsonar.login=$SONAR_TOKEN
@@ -200,7 +200,7 @@ workflows:
   build_and_test:
     jobs:
       - sonarqube_build
-              context: SonarCloud
+        context: SonarCloud
 
 #      - test_instrumentation:
 #          requires:
