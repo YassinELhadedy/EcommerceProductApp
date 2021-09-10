@@ -12,7 +12,7 @@ apply plugin: "androidx.navigation.safeargs.kotlin"
 
 sonarqube {
     properties {
-        property "sonar.host.url", "https://sonarcloud.io/"
+//        property "sonar.host.url", "https://sonarcloud.io/"
         property "sonar.projectKey", "YassinELhadedy_EcommerceProductApp"
         property "sonar.projectName", "EcommerceProductApp"
         property "sonar.organization", "yassinelhadedy"
@@ -30,7 +30,7 @@ sonarqube {
         property "sonar.java.coveragePlugin", "jacoco"
         property "sonar.junit.reportPaths", "**/test-results/**/*.xml"
         property "sonar.coverage.jacoco.xmlReportPaths", "**/jacocoTestReport/jacocoTestReport.xml"
-//        property "sonar.coverage.exclusions", "${coverageExclusions.join(', ')}"
+        property "sonar.coverage.exclusions", "${coverageExclusions.join(', ')}"
     }
 }
 

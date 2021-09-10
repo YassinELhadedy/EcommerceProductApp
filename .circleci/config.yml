@@ -93,6 +93,26 @@ jobs:
           path: app/build/test-results/
           destination: /test-results/
 
+  test_unit_sonar:
+    <<: *android_config
+    steps:
+      - checkout
+      - *restore_gradle_cache
+      - *restore_gems_cache
+      - *ruby_dependencies
+      - *android_dependencies
+      - *save_gradle_cache
+      - *save_gems_cache
+      - run:
+          name: Run unit tests
+          command: ./gradlew clean testDebugUnitTest
+      - store_artifacts:
+          path: app/build/reports/
+          destination: /reports/
+      - store_test_results:
+          path: app/build/test-results/
+          destination: /test-results/
+
   ## Run instrumentation tests
   test_instrumentation:
     <<: *android_config
@@ -199,7 +219,9 @@ jobs:
 workflows:
   main:
     jobs:
-      - build_sonarqube_build
+      - test_unit
+      - test_unit_sonar
+      - sonarqube_build
 #            context: SonarCloud
 #      - test_instrumentation:
 #          requires:
