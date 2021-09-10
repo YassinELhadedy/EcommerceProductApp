@@ -62,7 +62,7 @@ platform :android do
 platform :android do
     desc "Ecommerce app"
     lane :distribute do
-        build_android_app(...)
+        gradle(task: "clean assembleRelease")
         # build_android_app is a built-in fastlane action.
         firebase_app_distribution(
             app: "1:933511344970:android:42814d6383685c603787b3",
