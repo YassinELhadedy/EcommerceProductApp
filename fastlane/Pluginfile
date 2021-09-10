@@ -5,3 +5,4 @@
 gem 'fastlane-plugin-automated_test_emulator_run'
 gem 'fastlane-plugin-run_tests_firebase_testlab'
 gem 'fastlane-plugin-appcenter'
+gem 'fastlane-plugin-firebase_app_distribution'
