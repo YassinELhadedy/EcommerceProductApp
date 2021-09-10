@@ -1,0 +1,55 @@
+plugins {
+    id "org.sonarqube" version "3.3"
+}
+sonarqube {
+    properties {
+        property "sonar.host.url", "http://localhost:9000/"
+        property "sonar.projectKey", "com.jumia.myapplication"
+        property "sonar.projectName", "Jumia_App"
+        property "sonar.organization", "com.jumia.myapplication"
+        property "sonar.login", "80325e5470c5451bd827a2fff0d9a06dc75b405e"
+        property "sonar.tests", "src/test/java"
+        property "sonar.test.inclusions", "**/*Test*/**"
+        property "sonar.sourceEncoding", "UTF-8"
+        property "sonar.sources", "src/main/java"
+        property "sonar.exclusions", '**/*Test*/**,' +
+                'build/**' +
+                '*.json,' +
+                '**/*test*/**,' +
+                '**/.gradle/**,' +
+                '**/R.class'
+        property "sonar.java.coveragePlugin", "jacoco"
+        property "sonar.junit.reportPaths", "**/test-results/**/*.xml"
+        property "sonar.coverage.jacoco.xmlReportPaths", "**/jacocoTestReport/jacocoTestReport.xml"
+//        property "sonar.coverage.exclusions", "${coverageExclusions.join(', ')}"
+    }
+}
+
+//sonarqube {
+//    properties {
+//        property 'sonar.host.url', 'http://localhost:9000'
+//        property "sonar.projectName", "Jumia_App"
+//        property "sonar.projectKey", "com.jumia.myapplication"
+//        property "sonar.login", "admin"
+//        property "sonar.password", "ziadyasooo123"
+//        property "sonar.sourceEncoding", "UTF-8"
+//
+//        property "sonar.exclusions", "**/*Generated.java"
+//        property "sonar.sources", "src/main/java"
+//
+//        property 'sonar.core.codeCoveragePlugin', 'jacoco'
+//        property 'sonar.coverage.jacoco.xmlReportPaths', '${project.buildDir}/reports/jacoco.xml'
+//
+//        property "sonar.tests", ["src/test/java"]
+//        property "sonar.test.inclusions", "**/*Test*/**"
+//        property "sonar.sourceEncoding", "UTF-8"
+//        property "sonar.java.coveragePlugin", "jacoco"
+//        property "sonar.jacoco.reportPath", "**/jacoco/*.exec"
+//        property "sonar.exclusions", '**/*Test*/**,' +
+//                '*.json,' +
+//                '**/*test*/**,' +
+//                '**/.gradle/**,' +
+//                '**/R.class'
+//
+//    }
+//}
