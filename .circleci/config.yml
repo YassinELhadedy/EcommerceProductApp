@@ -178,7 +178,7 @@ jobs:
       - *save_gems_cache
       - run:
           name: Analyze on SonarCloud
-          command: gradle build sonarqube"
+          command: ./gradlew build sonarqube
 
   sonarqube_build:
     <<: *android_config
