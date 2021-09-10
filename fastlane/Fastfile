@@ -59,6 +59,19 @@ platform :android do
     crashlytics
   end
 
+platform :android do
+    desc "Ecommerce app"
+    lane :distribute do
+        build_android_app(...)
+        # build_android_app is a built-in fastlane action.
+        firebase_app_distribution(
+            app: "1:933511344970:android:42814d6383685c603787b3",
+            testers: "yassinelhadedy@hotmail.com, yassinelhadedy76@gmail.com",
+            release_notes: "Lots of amazing new features to test out!"
+        )
+    end
+end
+
   desc "Upload Apk to App Center"
   lane :deploy_to_appcenter do
     assemble

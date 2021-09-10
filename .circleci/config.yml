@@ -185,6 +185,20 @@ jobs:
           name: Deploy to AppCenter
           command: bundle exec fastlane deploy_to_appcenter
 
+  deploy_app_firebase_dist:
+    <<: *android_config
+    steps:
+      - checkout
+      - *restore_gradle_cache
+      - *restore_gems_cache
+      - *ruby_dependencies
+      - *android_dependencies
+      - *save_gradle_cache
+      - *save_gems_cache
+      - run:
+          name: Deploy to Firebase Dist
+          command: bundle exec fastlane distribute
+
   build_sonarqube_build:
     docker:
       - image: 'circleci/openjdk:11-jdk'
@@ -219,7 +233,7 @@ jobs:
 workflows:
   main:
     jobs:
-      - test_unit
+      - deploy_app_firebase_dist
 #      - test_unit_sonar
 #      - sonarqube_build:
 #           requires:
