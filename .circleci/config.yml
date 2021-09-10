@@ -175,8 +175,8 @@ jobs:
       - *android_dependencies
       - *save_gradle_cache
       - *save_gems_cache
-      - *cache_sonarQube_packages
-      - *cache_gradle_packages
+#      - *cache_sonarQube_packages
+#      - *cache_gradle_packages
       - run:
           name: Sonarqube Build
           command: ./gradlew build sonarqube
