@@ -178,7 +178,7 @@ jobs:
       - *save_gems_cache
       - run:
           name: Analyze on SonarCloud
-          command: ./gradlew sonarqube
+          command: gradle build sonarqube"
 
   sonarqube_build:
     <<: *android_config
@@ -199,8 +199,8 @@ jobs:
 workflows:
   main:
     jobs:
-      - sonarqube_build
-#            context: SonarCloud
+      - build_sonarqube_build
+            context: SonarCloud
 #      - test_instrumentation:
 #          requires:
 #            - test_unit
