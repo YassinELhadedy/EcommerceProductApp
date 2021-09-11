@@ -237,7 +237,10 @@ jobs:
       - *decode_gservices_key
       - run:
           name: Gradle build (debug)
-          command: bundle exec fastlane assemble
+          command: ./gradlew assembleDebug
+      - run:
+          name: Gradle build android test(debug)
+          command: ./gradlew cAT
       - *persist_debug_workspace
       - store_artifacts:
           path: mobile/build/outputs/apk/
