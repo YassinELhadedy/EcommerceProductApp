@@ -29,9 +29,9 @@ references:
 
   persist_firebase_workspace: &persist_firebase_workspace
     persist_to_workspace:
-      root: *workspace
+      root: .
       paths:
-        - firebase
+          - .
 
   ## Docker image configurations
   android_config: &android_config
@@ -216,7 +216,7 @@ jobs:
       - run:
           name: Download instrumented test results from Firebase Test Lab
           command: gsutil -m cp -r -U "`gsutil ls gs://test-lab-3udbiqpdyp0d0-miwcp7d69v80m | tail -1`*" /root/workspace/firebase/
-#      - *persist_firebase_workspace
+      - *persist_firebase_workspace
       - store_artifacts:
           path: firebase/
           destination: /firebase/
