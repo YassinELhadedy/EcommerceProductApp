@@ -189,40 +189,40 @@ jobs:
       - run:
           name: Run instrumentation tests in Firebase testlab
           command: bundle exec fastlane instrumentation_tests_testlab
-      #          command: sudo gcloud firebase test android run --app app/build/outputs/apk/debug/app-debug.apk --test app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk --results-bucket cloud-test-${GOOGLE_PROJECT_ID}
+#          command: sudo gcloud firebase test android run --app app/build/outputs/apk/debug/app-debug.apk --test app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk --results-bucket cloud-test-${GOOGLE_PROJECT_ID}
       - store_artifacts:
           path: firebase/
           destination: /firebase/
 
-    test_instrumented:
-      <<: *gcloud_config
-      steps:
-        - *attach_debug_workspace
-        - *export_gcloud_key
-        - *decode_gcloud_key
-        - run:
-            name: Set Google Cloud target project
-            command: gcloud config set project ecommerce-35eeb
-        - run:
-            name: Authenticate with Google Cloud
-            command: gcloud auth activate-service-account firebase-adminsdk-4ltda@ecommerce-35eeb.iam.gserviceaccount.com --key-file ${HOME}/client-secret.json
-        - run:
-            name: Run instrumented test on Firebase Test Lab
-            command: sudo gcloud firebase test android run --app app/build/outputs/apk/debug/app-debug.apk --test app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk --results-bucket cloud-test-${GOOGLE_PROJECT_ID}
-        #          command: gcloud firebase test android run --type instrumentation --app mobile/build/outputs/apk/debug/mobile-debug.apk --test mobile/build/outputs/apk/androidTest/debug/mobile-debug-androidTest.apk --device model=sailfish,version=26,locale=en_US,orientation=portrait --environment-variables coverage=true,coverageFile=/sdcard/tmp/code-coverage/connected/coverage.ec --directories-to-pull=/sdcard/tmp --timeout 20m
-        - run:
-            name: Create directory to store test results
-            command: mkdir firebase
-        - run:
-            name: Download instrumented test results from Firebase Test Lab
-            command: gsutil -m cp -r -U "`gsutil ls gs://test-lab-3udbiqpdyp0d0-miwcp7d69v80m | tail -1`*" /root/workspace/firebase/
-        - *persist_firebase_workspace
-        - store_artifacts:
-            path: firebase/
-            destination: /firebase/
+   test_instrumented:
+     <<: *gcloud_config
+     steps:
+       - *attach_debug_workspace
+       - *export_gcloud_key
+       - *decode_gcloud_key
+       - run:
+          name: Set Google Cloud target project
+          command: gcloud config set project ecommerce-35eeb
+       - run:
+          name: Authenticate with Google Cloud
+          command: gcloud auth activate-service-account firebase-adminsdk-4ltda@ecommerce-35eeb.iam.gserviceaccount.com --key-file ${HOME}/client-secret.json
+       - run:
+          name: Run instrumented test on Firebase Test Lab
+          command: sudo gcloud firebase test android run --app app/build/outputs/apk/debug/app-debug.apk --test app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk --results-bucket cloud-test-${GOOGLE_PROJECT_ID}
+#          command: gcloud firebase test android run --type instrumentation --app mobile/build/outputs/apk/debug/mobile-debug.apk --test mobile/build/outputs/apk/androidTest/debug/mobile-debug-androidTest.apk --device model=sailfish,version=26,locale=en_US,orientation=portrait --environment-variables coverage=true,coverageFile=/sdcard/tmp/code-coverage/connected/coverage.ec --directories-to-pull=/sdcard/tmp --timeout 20m
+       - run:
+          name: Create directory to store test results
+          command: mkdir firebase
+       - run:
+          name: Download instrumented test results from Firebase Test Lab
+          command: gsutil -m cp -r -U "`gsutil ls gs://test-lab-3udbiqpdyp0d0-miwcp7d69v80m | tail -1`*" /root/workspace/firebase/
+       - *persist_firebase_workspace
+       - store_artifacts:
+          path: firebase/
+          destination: /firebase/
 
 
-      ## Build debug APK and instrumented test APK
+     ## Build debug APK and instrumented test APK
 
   build_debug:
     <<: *android_config
@@ -339,10 +339,10 @@ jobs:
 workflows:
   main:
     jobs:
-      - build_debug
-      - test_instrumented:
-          requires:
-            - build_debug
+       - build_debug
+       - test_instrumented:
+            requires:
+               - build_debug
 
 #      - test_unit_sonar
 #      - sonarqube_build:
