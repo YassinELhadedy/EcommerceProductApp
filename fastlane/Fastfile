@@ -40,6 +40,19 @@ platform :android do
     gradle(task: "test", build_type: @build_type)
   end
 
+
+  desc "Run Sonarqube"
+  lane :sonarqube_analysis do
+      sonar(
+       project_key: YassinELhadedy_EcommerceProductApp",
+       project_name: "EcommerceProductApp",
+       sources_path: "src/main/java",
+       sonar_organization: "yassinelhadedy",
+       sonar_login: ENV['SONAR_TOKEN'],
+       sonar_url: ENV['SONAR_HOST_URL']
+     )
+  end
+
   desc "Run instrumentation tests in Firebase Test Lab"
   lane :instrumentation_tests_testlab do
     assemble

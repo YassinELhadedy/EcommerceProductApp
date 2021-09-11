@@ -228,12 +228,12 @@ jobs:
       #      - *cache_gradle_packages
       - run:
           name: Sonarqube Build
-          command: ./gradlew sonarqube -Dsonar.host.url=$SONAR_HOST_URL -Dsonar.login=$SONAR_TOKEN
+          command: bundle exec fastlane sonarqube_analysis
 
 workflows:
   main:
     jobs:
-      - deploy_app_firebase_dist
+      - sonarqube_build
 #      - test_unit_sonar
 #      - sonarqube_build:
 #           requires:
