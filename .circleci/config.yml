@@ -135,8 +135,7 @@ jobs:
           command: sudo pip install -U crcmod
       - run:
           name: Run instrumentation tests in Firebase testlab
-          command:
-          sudo gcloud firebase test android run \
+          command: sudo gcloud firebase test android run \
           --app app/build/outputs/apk/debug/app-debug.apk \
           --test app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk \
           --results-bucket cloud-test-${GOOGLE_PROJECT_ID}
