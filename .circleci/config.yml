@@ -56,7 +56,7 @@ references:
   decode_gcloud_key: &decode_gcloud_key
     run:
       name: Decode Google Cloud credentials
-      command: echo $GCLOUD_SERVICE_KEY | base64 -di > ${HOME}/client-secret.json
+      command: echo $GCLOUD_SERVICE_KEY > ${HOME}/client-secret.json
 
   # Google Services
 
@@ -67,7 +67,7 @@ references:
   decode_gservices_key: &decode_gservices_key
     run:
       name: Decode Google Services key
-      command: echo $GOOGLE_SERVICES_KEY | base64 -di > mobile/google-services.json
+      command: echo $GOOGLE_SERVICES_KEY > mobile/google-services.json
 
 
   ## Cache
