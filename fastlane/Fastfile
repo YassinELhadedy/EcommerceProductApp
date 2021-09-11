@@ -44,7 +44,7 @@ platform :android do
   desc "Run Sonarqube"
   lane :sonarqube_analysis do
       sonar(
-       project_key: YassinELhadedy_EcommerceProductApp",
+       project_key: "YassinELhadedy_EcommerceProductApp",
        project_name: "EcommerceProductApp",
        sources_path: "src/main/java",
        sonar_organization: "yassinelhadedy",
