@@ -67,7 +67,7 @@ references:
   decode_gservices_key: &decode_gservices_key
     run:
       name: Decode Google Services key
-      command: echo $GOOGLE_SERVICES_KEY > mobile/google-services.json
+      command: echo $GOOGLE_SERVICES_KEY > app/google-services.json
 
 
   ## Cache
@@ -199,7 +199,7 @@ jobs:
     steps:
       - *attach_debug_workspace
       - *export_gcloud_key
-  #    - *decode_gcloud_key
+      - *decode_gcloud_key
       - run:
           name: Set Google Cloud target project
           command: gcloud config set project ecommerce-35eeb
@@ -234,7 +234,7 @@ jobs:
           command: ./gradlew androidDependencies
       - *save_gradle_cache
       - *export_gservices_key
-#      - *decode_gservices_key
+      - *decode_gservices_key
       - run:
           name: Gradle build (debug)
           command: bundle exec fastlane assemble
