@@ -64,8 +64,6 @@ platform :android do
     lane :distribute do
         gradle(task: "clean assembleRelease")
         # build_android_app is a built-in fastlane action.
-
-
          firebase_app_distribution(
                   app: ENV['FIREBASE_APP_ID'],
                   groups: options[:group],
