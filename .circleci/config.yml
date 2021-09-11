@@ -199,7 +199,7 @@ jobs:
     steps:
       - *attach_debug_workspace
       - *export_gcloud_key
-      - *decode_gcloud_key
+  #    - *decode_gcloud_key
       - run:
           name: Set Google Cloud target project
           command: gcloud config set project ecommerce-35eeb
