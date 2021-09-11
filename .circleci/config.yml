@@ -4,6 +4,35 @@ references:
   workspace: &workspace
                ~/src
 
+  gcloud_config: &gcloud_config
+    working_directory: *workspace
+    docker:
+      - image: google/cloud-sdk:latest
+    environment:
+      TERM: dumb
+
+    attach_debug_workspace: &attach_debug_workspace
+      attach_workspace:
+        at: *workspace
+      attach_release_workspace: &attach_release_workspace
+        attach_workspace:
+          at: *workspace
+      persist_debug_workspace: &persist_debug_workspace
+        persist_to_workspace:
+          root: *workspace
+          paths:
+            - mobile/build/intermediates
+            - mobile/build/outputs/androidTest-results
+            - mobile/build/outputs/apk
+            - mobile/build/outputs/code-coverage
+            - mobile/build/test-results
+
+    persist_firebase_workspace: &persist_firebase_workspace
+      persist_to_workspace:
+        root: *workspace
+        paths:
+          - firebase
+
   ## Docker image configurations
   android_config: &android_config
     working_directory: *workspace
@@ -16,6 +45,30 @@ references:
       TERM: dumb
       _JAVA_OPTIONS: "-Xmx3200m"
       GRADLE_OPTS: '-Dorg.gradle.jvmargs="-Xmx2048m"'
+
+
+  # Google Cloud Service
+
+  export_gcloud_key: &export_gcloud_key
+    run:
+      name: Export Google Cloud Service key environment variable
+      command: echo 'export GCLOUD_SERVICE_KEY="$GCLOUD_SERVICE_KEY"' >> $BASH_ENV
+  decode_gcloud_key: &decode_gcloud_key
+    run:
+      name: Decode Google Cloud credentials
+      command: echo $GCLOUD_SERVICE_KEY | base64 -di > ${HOME}/client-secret.json
+
+  # Google Services
+
+  export_gservices_key: &export_gservices_key
+    run:
+      name: Export Google Services key environment variable
+      command: echo 'export GOOGLE_SERVICES_KEY="$GOOGLE_SERVICES_KEY"' >> $BASH_ENV
+  decode_gservices_key: &decode_gservices_key
+    run:
+      name: Decode Google Services key
+      command: echo $GOOGLE_SERVICES_KEY | base64 -di > mobile/google-services.json
+
 
   ## Cache
   gradle_key: &gradle_key
@@ -135,12 +188,63 @@ jobs:
           command: sudo pip install -U crcmod
       - run:
           name: Run instrumentation tests in Firebase testlab
-          command: sudo gcloud firebase test android run --app app/build/outputs/apk/debug/app-debug.apk --test app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk --results-bucket cloud-test-${GOOGLE_PROJECT_ID}
+          command: bundle exec fastlane instrumentation_tests_testlab
+#          command: sudo gcloud firebase test android run --app app/build/outputs/apk/debug/app-debug.apk --test app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk --results-bucket cloud-test-${GOOGLE_PROJECT_ID}
       - store_artifacts:
           path: firebase/
           destination: /firebase/
 
-  ## Deploy to Crashlytics Beta
+   test_instrumented:
+     <<: *gcloud_config
+     steps:
+       - *attach_debug_workspace
+       - *export_gcloud_key
+       - *decode_gcloud_key
+       - run:
+          name: Set Google Cloud target project
+          command: gcloud config set project ecommerce-35eeb
+       - run:
+          name: Authenticate with Google Cloud
+          command: gcloud auth activate-service-account firebase-adminsdk-4ltda@ecommerce-35eeb.iam.gserviceaccount.com --key-file ${HOME}/client-secret.json
+       - run:
+          name: Run instrumented test on Firebase Test Lab
+          command: sudo gcloud firebase test android run --app app/build/outputs/apk/debug/app-debug.apk --test app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk --results-bucket cloud-test-${GOOGLE_PROJECT_ID}
+#          command: gcloud firebase test android run --type instrumentation --app mobile/build/outputs/apk/debug/mobile-debug.apk --test mobile/build/outputs/apk/androidTest/debug/mobile-debug-androidTest.apk --device model=sailfish,version=26,locale=en_US,orientation=portrait --environment-variables coverage=true,coverageFile=/sdcard/tmp/code-coverage/connected/coverage.ec --directories-to-pull=/sdcard/tmp --timeout 20m
+       - run:
+          name: Create directory to store test results
+          command: mkdir firebase
+       - run:
+          name: Download instrumented test results from Firebase Test Lab
+          command: gsutil -m cp -r -U "`gsutil ls gs://test-lab-3udbiqpdyp0d0-miwcp7d69v80m | tail -1`*" /root/workspace/firebase/
+       - *persist_firebase_workspace
+       - store_artifacts:
+          path: firebase/
+          destination: /firebase/
+
+
+     ## Build debug APK and instrumented test APK
+
+  build_debug:
+    <<: *android_config
+    steps:
+      - checkout
+      - *restore_gradle_cache
+      - run:
+          name: Download dependencies
+          command: ./gradlew androidDependencies
+      - *save_gradle_cache
+      - *export_gservices_key
+      - *decode_gservices_key
+      - run:
+          name: Gradle build (debug)
+          command: bundle exec fastlane assemble
+      - *persist_debug_workspace
+      - store_artifacts:
+          path: mobile/build/outputs/apk/
+          destination: /apk/
+
+
+    ## Deploy to Crashlytics Beta
   deploy_crashlytics:
     <<: *android_config
     steps:
@@ -199,6 +303,8 @@ jobs:
           name: Deploy to Firebase Dist
           command: bundle exec fastlane distribute
 
+  #Analysis
+
   build_sonarqube_build:
     docker:
       - image: 'circleci/openjdk:11-jdk'
@@ -233,7 +339,11 @@ jobs:
 workflows:
   main:
     jobs:
-      - test_instrumentation
+       - build_debug
+       - test_instrumented:
+            requires:
+               - build_debug
+
 #      - test_unit_sonar
 #      - sonarqube_build:
 #           requires:
