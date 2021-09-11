@@ -19,19 +19,15 @@ references:
       at: *workspace
   persist_debug_workspace: &persist_debug_workspace
     persist_to_workspace:
-      root: *workspace
+      root: .
       paths:
-        - mobile/build/intermediates
-        - mobile/build/outputs/androidTest-results
-        - mobile/build/outputs/apk
-        - mobile/build/outputs/code-coverage
-        - mobile/build/test-results
+        - .
 
   persist_firebase_workspace: &persist_firebase_workspace
     persist_to_workspace:
-      root: .
+      root: *workspace
       paths:
-          - .
+        - firebase
 
   ## Docker image configurations
   android_config: &android_config
