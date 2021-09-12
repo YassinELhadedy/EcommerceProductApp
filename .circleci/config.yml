@@ -458,7 +458,8 @@ workflows:
               only:
                 - master
           requires:
-            - test_instrumented
+            - test_unit
+#            - test_instrumented
       - sonarqube_build:
           filters:
             branches:
