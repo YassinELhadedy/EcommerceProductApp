@@ -358,22 +358,22 @@ workflows:
             tags:
               only: /^feature-.*/
 
-  on_feature_PR_workflow:
-    jobs:
-      - test_instrumented:
-          filters:
-            branches:
-              only:
-                - develop
-          pull_request: true
-      - deploy_crashlytics:
-          filters:
-            branches:
-              only:
-                - develop
-          pull_request: true
-          requires:
-            - test_instrumentation
+  #  on_feature_PR_workflow:
+  #    jobs:
+  #      - test_instrumented:
+  #          filters:
+  #            branches:
+  #              only:
+  #                - develop
+  #          pull_request: true
+  #      - deploy_crashlytics:
+  #          filters:
+  #            branches:
+  #              only:
+  #                - develop
+  #          pull_request: true
+  #          requires:
+  #            - test_instrumentation
 
 
   on_push_on_develop_workflow:
@@ -417,6 +417,15 @@ workflows:
               ignore: /.*/
             tags:
               only: /^release-.*/
+
+      - test_instrumented:
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /^release-.*/
+          requires:
+            - test_unit
       - deploy_app_firebase_dist_production_version:
           filters:
             branches:
@@ -426,10 +435,11 @@ workflows:
               only: /^release-.*/
           requires:
             - test_unit
+            - test_instrumented
 
 
 
-  on_master_pr_workflow:
+  on_push_master_workflow:
     jobs:
       - test_unit
       - test_instrumented:
@@ -437,7 +447,6 @@ workflows:
             branches:
               only:
                 - master
-          pull_request: true
           requires:
             - test_unit
       - deploy_crashlytics:
@@ -445,7 +454,6 @@ workflows:
             branches:
               only:
                 - master
-          pull_request: true
           requires:
             - test_instrumentation
       - sonarqube_build:
@@ -453,7 +461,6 @@ workflows:
             branches:
               only:
                 - master
-          pull_request: true
           requires:
             - test_instrumentation
       - deploy_app_firebase_dist:
@@ -461,7 +468,6 @@ workflows:
             branches:
               only:
                 - master
-          pull_request: true
           requires:
             - test_instrumentation
       - deploy_play_store:
@@ -469,7 +475,6 @@ workflows:
             branches:
               only:
                 - master
-          pull_request: true
           requires:
             - test_unit
             - test_instrumentation
