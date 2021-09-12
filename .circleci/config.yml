@@ -354,9 +354,8 @@ workflows:
       - test_unit:
           filters:
             branches:
-              ignore: /.*/
-            tags:
-              only: /^feature-.*/
+              only:
+                -/feature-.*/
 
   #  on_feature_PR_workflow:
   #    jobs:
@@ -414,25 +413,21 @@ workflows:
       - test_unit:
           filters:
             branches:
-              ignore: /.*/
-            tags:
-              only: /^release-.*/
+              only:
+                - /release-.*/
 
       - test_instrumented:
           filters:
             branches:
-              ignore: /.*/
-            tags:
-              only: /^release-.*/
+              only:
+                - /release-.*/
           requires:
             - test_unit
       - deploy_app_firebase_dist_production_version:
           filters:
             branches:
-              ignore: /.*/
-
-            tags:
-              only: /^release-.*/
+              only:
+                - /release-.*/
           requires:
             - test_unit
             - test_instrumented
