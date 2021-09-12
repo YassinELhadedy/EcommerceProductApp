@@ -476,9 +476,9 @@ workflows:
             branches:
               only:
                 - master
-                - build_debug
           requires:
             - test_unit
+            - build_debug
       - deploy_crashlytics:
           filters:
             branches:
