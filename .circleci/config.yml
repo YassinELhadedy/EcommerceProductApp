@@ -355,7 +355,7 @@ workflows:
           filters:
             branches:
               only:
-                -/feature-.*/
+                - /feature-.*/
 
   #  on_feature_PR_workflow:
   #    jobs:
