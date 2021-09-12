@@ -382,6 +382,13 @@ workflows:
             branches:
               only:
                 - develop
+      - build_debug:
+          filters:
+            branches:
+              only:
+                - develop
+          requires:
+            - test_unit
       - test_instrumented:
           filters:
             branches:
@@ -389,6 +396,7 @@ workflows:
                 - develop
           requires:
             - test_unit
+            - build_debug
       - deploy_crashlytics:
           filters:
             branches:
@@ -420,6 +428,14 @@ workflows:
               only:
                 - /release-.*/
 
+      - build_debug:
+          filters:
+            branches:
+              only:
+                - /release-.*/
+          requires:
+            - test_unit
+
       - test_instrumented:
           filters:
             branches:
@@ -427,6 +443,7 @@ workflows:
                 - /release-.*/
           requires:
             - test_unit
+            - build_debug
       - deploy_app_firebase_dist_production_version:
           filters:
             branches:
@@ -445,11 +462,21 @@ workflows:
             branches:
               only:
                 - master
+
+      - build_debug:
+          filters:
+            branches:
+              only:
+                - master
+          requires:
+            - test_unit
+
       - test_instrumented:
           filters:
             branches:
               only:
                 - master
+                - build_debug
           requires:
             - test_unit
       - deploy_crashlytics:
@@ -459,14 +486,14 @@ workflows:
                 - master
           requires:
             - test_unit
-#            - test_instrumented
+      #            - test_instrumented
       - sonarqube_build:
           filters:
             branches:
               only:
                 - master
           requires:
-#            - test_instrumented
+            #            - test_instrumented
             - test_unit
       - deploy_app_firebase_dist:
           filters:
@@ -474,7 +501,7 @@ workflows:
               only:
                 - master
           requires:
-#            - test_instrumented
+            #            - test_instrumented
             - test_unit
       - deploy_play_store:
           filters:
