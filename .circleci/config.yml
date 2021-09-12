@@ -377,7 +377,11 @@ workflows:
 
   on_push_on_develop_workflow:
     jobs:
-      - test_unit
+      - test_unit:
+          filters:
+            branches:
+              only:
+                - develop
       - test_instrumented:
           filters:
             branches:
@@ -436,7 +440,11 @@ workflows:
 
   on_push_master_workflow:
     jobs:
-      - test_unit
+      - test_unit:
+          filters:
+            branches:
+              only:
+                - master
       - test_instrumented:
           filters:
             branches:
