@@ -162,33 +162,33 @@ jobs:
           path: app/build/test-results/
           destination: /test-results/
 
-  ## Run instrumentation tests
-  test_instrumentation:
-    <<: *android_config
-    steps:
-      - checkout
-      - *restore_gradle_cache
-      - *restore_gems_cache
-      - *ruby_dependencies
-      - *android_dependencies
-      - *save_gradle_cache
-      - *save_gems_cache
-      # Since we will download a video, we require integrity checking with CRC32c
-      # But the crcmod installation in the docker image isn't using the module's C extension
-      # So, uninstall it and install again with the C extension
-      - run:
-          name: Uninstall crcmod
-          command: echo "y" | sudo pip uninstall crcmod
-      - run:
-          name: Install crcmod
-          command: sudo pip install -U crcmod
-      - run:
-          name: Run instrumentation tests in Firebase testlab
-          command: bundle exec fastlane instrumentation_tests_testlab
-      #          command: sudo gcloud firebase test android run --app app/build/outputs/apk/debug/app-debug.apk --test app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk --results-bucket cloud-test-${GOOGLE_PROJECT_ID}
-      - store_artifacts:
-          path: firebase/
-          destination: /firebase/
+  #  ## Run instrumentation tests
+  #  test_instrumentation:
+  #    <<: *android_config
+  #    steps:
+  #      - checkout
+  #      - *restore_gradle_cache
+  #      - *restore_gems_cache
+  #      - *ruby_dependencies
+  #      - *android_dependencies
+  #      - *save_gradle_cache
+  #      - *save_gems_cache
+  #      # Since we will download a video, we require integrity checking with CRC32c
+  #      # But the crcmod installation in the docker image isn't using the module's C extension
+  #      # So, uninstall it and install again with the C extension
+  #      - run:
+  #          name: Uninstall crcmod
+  #          command: echo "y" | sudo pip uninstall crcmod
+  #      - run:
+  #          name: Install crcmod
+  #          command: sudo pip install -U crcmod
+  #      - run:
+  #          name: Run instrumentation tests in Firebase testlab
+  #          command: bundle exec fastlane instrumentation_tests_testlab
+  #      #          command: sudo gcloud firebase test android run --app app/build/outputs/apk/debug/app-debug.apk --test app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk --results-bucket cloud-test-${GOOGLE_PROJECT_ID}
+  #      - store_artifacts:
+  #          path: firebase/
+  #          destination: /firebase/
 
   test_instrumented:
     <<: *gcloud_config
@@ -273,20 +273,20 @@ jobs:
           name: Deploy to Play Store
           command: bundle exec fastlane deploy_to_play_store
 
-    ## Deploy to Appcenter
-  deploy_app_center:
-    <<: *android_config
-    steps:
-      - checkout
-      - *restore_gradle_cache
-      - *restore_gems_cache
-      - *ruby_dependencies
-      - *android_dependencies
-      - *save_gradle_cache
-      - *save_gems_cache
-      - run:
-          name: Deploy to AppCenter
-          command: bundle exec fastlane deploy_to_appcenter
+  #    ## Deploy to Appcenter
+  #  deploy_app_center:
+  #    <<: *android_config
+  #    steps:
+  #      - checkout
+  #      - *restore_gradle_cache
+  #      - *restore_gems_cache
+  #      - *ruby_dependencies
+  #      - *android_dependencies
+  #      - *save_gradle_cache
+  #      - *save_gems_cache
+  #      - run:
+  #          name: Deploy to AppCenter
+  #          command: bundle exec fastlane deploy_to_appcenter
 
   deploy_app_firebase_dist:
     <<: *android_config
@@ -302,11 +302,8 @@ jobs:
           name: Deploy to Firebase Dist
           command: bundle exec fastlane distribute
 
-  #Analysis
-
-  build_sonarqube_build:
-    docker:
-      - image: 'circleci/openjdk:11-jdk'
+  deploy_app_firebase_dist_production_version:
+    <<: *android_config
     steps:
       - checkout
       - *restore_gradle_cache
@@ -316,8 +313,24 @@ jobs:
       - *save_gradle_cache
       - *save_gems_cache
       - run:
-          name: Analyze on SonarCloud
-          command: ./gradlew build sonarqube
+          name: Deploy production version to Firebase Dist
+          command: bundle exec fastlane distribute_production_version
+  #Analysis
+
+  #  build_sonarqube_build:
+  #    docker:
+  #      - image: 'circleci/openjdk:11-jdk'
+  #    steps:
+  #      - checkout
+  #      - *restore_gradle_cache
+  #      - *restore_gems_cache
+  #      - *ruby_dependencies
+  #      - *android_dependencies
+  #      - *save_gradle_cache
+  #      - *save_gems_cache
+  #      - run:
+  #          name: Analyze on SonarCloud
+  #          command: ./gradlew build sonarqube
 
   sonarqube_build:
     <<: *android_config
@@ -336,38 +349,171 @@ jobs:
           command: ./gradlew sonarqube -Dsonar.host.url=$SONAR_HOST_URL -Dsonar.login=$SONAR_TOKEN
 
 workflows:
-  main:
+  on_feature_workflow:
     jobs:
-      - build_debug
-      - test_instrumented:
-          requires:
-            - build_debug
+      - test_unit:
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /^feature-.*/
 
-#      - test_unit_sonar
-#      - sonarqube_build:
-#           requires:
-#              - test_unit
-#              - test_unit_sonar
-#            context: SonarCloud
-#      - test_instrumentation:
-#          requires:
-#            - test_unit
-#      - deploy_app_center:
-#          requires:
-#            - test_unit
-#      - deploy_crashlytics:
-#          filters:
-#            branches:
-#              only:
-#                - beta
-#          requires:
-#            - test_unit
-#            - test_instrumentation
-#      - deploy_play_store:
-#          filters:
-#            branches:
-#              only:
-#                - production
-#          requires:
-#            - test_unit
+  on_feature_PR_workflow:
+    jobs:
+      - test_instrumented:
+          filters:
+            branches:
+              only:
+                - develop
+          pull_request: true
+      - deploy_crashlytics:
+          filters:
+            branches:
+              only:
+                - develop
+          pull_request: true
+          requires:
+            - test_instrumentation
+
+
+  on_push_on_develop_workflow:
+    jobs:
+      - test_unit
+      - test_instrumented:
+          filters:
+            branches:
+              only:
+                - develop
+          requires:
+            - test_unit
+      - deploy_crashlytics:
+          filters:
+            branches:
+              only:
+                - develop
+          requires:
+            - test_instrumentation
+      - sonarqube_build:
+          filters:
+            branches:
+              only:
+                - develop
+          requires:
+            - test_instrumentation
+      - deploy_app_firebase_dist:
+          filters:
+            branches:
+              only:
+                - develop
+          requires:
+            - test_instrumentation
+
+
+  on_release_workflow:
+    jobs:
+      - test_unit:
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /^release-.*/
+      - deploy_app_firebase_dist_production_version:
+          filters:
+            branches:
+              ignore: /.*/
+
+           tags:
+                  only: /^release-.*/
+          requires:
+            - test_unit
+
+
+
+  on_master_pr_workflow:
+    jobs:
+      - test_unit
+      - test_instrumented:
+          filters:
+            branches:
+              only:
+                - master
+          pull_request: true
+          requires:
+            - test_unit
+      - deploy_crashlytics:
+          filters:
+            branches:
+              only:
+                - master
+          pull_request: true
+          requires:
+            - test_instrumentation
+      - sonarqube_build:
+          filters:
+            branches:
+              only:
+                - master
+          pull_request: true
+          requires:
+            - test_instrumentation
+      - deploy_app_firebase_dist:
+          filters:
+            branches:
+              only:
+                - master
+          pull_request: true
+          requires:
+            - test_instrumentation
+      - deploy_play_store:
+          filters:
+            branches:
+              only:
+                - master
+          pull_request: true
+          requires:
+            - test_unit
+            - test_instrumentation
+            - deploy_crashlytics
+            - sonarqube_build
+            - deploy_play_store
+        #      - test_instrumented:
+        #          filters:
+        #            branches:
+        #              only:
+        #                - develop
+        #              pull_request: true
+
+
+        #      - build_debug
+        #      - test_instrumented:
+        #          requires:
+        #            - build_debug
+
+        #      - test_unit_sonar
+        #      - sonarqube_build:
+        #           requires:
+        #              - test_unit
+        #              - test_unit_sonar
+        #            context: SonarCloud
+        #      - test_instrumentation:
+        #          requires:
+        #            - test_unit
+        #      - deploy_app_center:
+        #          requires:
+        #            - test_unit
+        #      - deploy_crashlytics:
+        #          filters:
+        #            branches:
+        #              only:
+        #                - beta
+        #          requires:
+        #            - test_unit
+        #            - test_instrumentation
+        #      - deploy_play_store:
+        #          filters:
+        #            branches:
+        #              only:
+        #                - production
+        #          requires:
+      #            - test_unit
 #            - test_instrumentation

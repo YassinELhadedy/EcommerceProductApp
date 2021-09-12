@@ -74,6 +74,20 @@ platform :android do
 
   desc "Ecommerce app"
   lane :distribute do
+    gradle(task: "clean assembleDebug")
+    # build_android_app is a built-in fastlane action.
+    firebase_app_distribution(
+      app: ENV['FIREBASE_APP_ID'],
+      groups: "android-QA",
+      release_notes: "Fastlane Droid Release Notes Updated 1.0.0",
+      firebase_cli_path: "/usr/local/bin/firebase",
+      firebase_cli_token: ENV['FIREBASE_DIS_TOKEN_CLI']
+     )
+   end
+
+
+  desc "Ecommerce app"
+  lane :distribute_production_version do
     gradle(task: "clean assembleRelease")
     # build_android_app is a built-in fastlane action.
     firebase_app_distribution(
