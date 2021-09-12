@@ -395,9 +395,15 @@ workflows:
               only:
                 - develop
           requires:
-            - test_unit
             - build_debug
       - deploy_crashlytics:
+          filters:
+            branches:
+              only:
+                - develop
+          requires:
+            - test_instrumented
+      - test_unit_sonar:
           filters:
             branches:
               only:
@@ -410,7 +416,7 @@ workflows:
               only:
                 - develop
           requires:
-            - test_instrumented
+            - test_unit_sonar
       - deploy_app_firebase_dist:
           filters:
             branches:
@@ -442,7 +448,6 @@ workflows:
               only:
                 - /release-.*/
           requires:
-            - test_unit
             - build_debug
       - deploy_app_firebase_dist_production_version:
           filters:
@@ -450,7 +455,6 @@ workflows:
               only:
                 - /release-.*/
           requires:
-            - test_unit
             - test_instrumented
 
 
@@ -477,7 +481,6 @@ workflows:
               only:
                 - master
           requires:
-            - test_unit
             - build_debug
       - deploy_crashlytics:
           filters:
@@ -486,15 +489,24 @@ workflows:
                 - master
           requires:
             - test_unit
-      #            - test_instrumented
+        #            - test_instrumented
+
+      - test_unit_sonar:
+          filters:
+            branches:
+              only:
+                - master
+          requires:
+            - test_unit
+            #            - test_instrumented
+
       - sonarqube_build:
           filters:
             branches:
               only:
                 - master
           requires:
-            #            - test_instrumented
-            - test_unit
+            - test_unit_sonar
       - deploy_app_firebase_dist:
           filters:
             branches:
