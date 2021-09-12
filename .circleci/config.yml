@@ -466,14 +466,16 @@ workflows:
               only:
                 - master
           requires:
-            - test_instrumented
+#            - test_instrumented
+            - test_unit
       - deploy_app_firebase_dist:
           filters:
             branches:
               only:
                 - master
           requires:
-            - test_instrumented
+#            - test_instrumented
+            - test_unit
       - deploy_play_store:
           filters:
             branches:
