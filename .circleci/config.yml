@@ -392,21 +392,21 @@ workflows:
               only:
                 - develop
           requires:
-            - test_instrumentation
+            - test_instrumented
       - sonarqube_build:
           filters:
             branches:
               only:
                 - develop
           requires:
-            - test_instrumentation
+            - test_instrumented
       - deploy_app_firebase_dist:
           filters:
             branches:
               only:
                 - develop
           requires:
-            - test_instrumentation
+            - test_instrumented
 
 
   on_release_workflow:
@@ -455,21 +455,21 @@ workflows:
               only:
                 - master
           requires:
-            - test_instrumentation
+            - test_instrumented
       - sonarqube_build:
           filters:
             branches:
               only:
                 - master
           requires:
-            - test_instrumentation
+            - test_instrumented
       - deploy_app_firebase_dist:
           filters:
             branches:
               only:
                 - master
           requires:
-            - test_instrumentation
+            - test_instrumented
       - deploy_play_store:
           filters:
             branches:
@@ -477,7 +477,7 @@ workflows:
                 - master
           requires:
             - test_unit
-            - test_instrumentation
+            - test_instrumented
             - deploy_crashlytics
             - sonarqube_build
             - deploy_play_store
