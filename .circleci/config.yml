@@ -422,8 +422,8 @@ workflows:
             branches:
               ignore: /.*/
 
-           tags:
-                  only: /^release-.*/
+            tags:
+              only: /^release-.*/
           requires:
             - test_unit
 
