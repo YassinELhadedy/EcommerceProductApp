@@ -1,75 +1,75 @@
 name: Push On Release Branch
 
 on:
-    push:
-        branches:
-            - 'release-**'
+  push:
+    branches:
+      - 'release-**'
 jobs:
 
-    firebase_distribution_job:
-        runs-on: ubuntu-latest
-        steps:
-            -   name: Checkout
-                uses: actions/checkout@v1
+  firebase_distribution_job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
 
-            -   name: Restore Cache
-                uses: actions/cache@v2
-                with:
-                    path: |
-                        ~/.gradle/caches
-                        ~/.gradle/wrapper
-                    key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
-                    restore-keys: |
-                        ${{ runner.os }}-gradle-
-            -   name: Set Up JDK
-                uses: actions/setup-java@v1
-                with:
-                    java-version: 11
+      - name: Restore Cache
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+      - name: Set Up JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
 
-            -   name: Build Projects
-                run: ./gradlew assembleDebug
+      - name: Build Projects
+        run: ./gradlew assembleDebug
 
-            -   name: Upload APK
-                uses: actions/upload-artifact@v2
-                with:
-                    name: apk
-                    path: app/build/outputs/apk/debug/**.apk
+      - name: Upload APK
+        uses: actions/upload-artifact@v2
+        with:
+          name: apk
+          path: app/build/outputs/apk/debug/**.apk
 
-            #            -   name: upload artefact to App Center
-            #                uses: wzieba/AppCenter-Github-Action@v1
-            #                with:
-            #                    appName: WhatsLab/Shopper-staging
-            #                    token: ${{secrets.APP_CENTER_TOKEN}}
-            #                    group: Shopper QA
-            #                    file: app/build/outputs/apk/staging/debug/app-staging-debug.apk
-            #                    notifyTesters: true
-            #                    debug: false
+      #            -   name: upload artefact to App Center
+      #                uses: wzieba/AppCenter-Github-Action@v1
+      #                with:
+      #                    appName: WhatsLab/Shopper-staging
+      #                    token: ${{secrets.APP_CENTER_TOKEN}}
+      #                    group: Shopper QA
+      #                    file: app/build/outputs/apk/staging/debug/app-staging-debug.apk
+      #                    notifyTesters: true
+      #                    debug: false
 
-            -   name: Upload to Firebase App Distribution
-                uses: wzieba/Firebase-Distribution-Github-Action@v1.2.1
-                with:
-                    appId: ${{ secrets.FIREBASE_APP_ID }}
-                    token: ${{ secrets.FIREBASE_TOKEN }}
-                    groups: android-QA
-                    file: app/build/outputs/apk/debug/app-debug.apk
-                    debug: true
+      - name: Upload to Firebase App Distribution
+        uses: wzieba/Firebase-Distribution-Github-Action@v1.2.1
+        with:
+          appId: ${{ secrets.FIREBASE_APP_ID }}
+          token: ${{ secrets.FIREBASE_TOKEN }}
+          groups: android-QA
+          file: app/build/outputs/apk/debug/app-debug.apk
+          debug: true
 
-    notification_job:
-        needs: [ firebase_distribution_job ]
-        name: Notify Build Status
-        runs-on: ubuntu-latest
-        steps:
-            -   uses: technote-space/workflow-conclusion-action@v1
-            -   uses: 8398a7/action-slack@v3
-                with:
-                    status: ${{ env.WORKFLOW_CONCLUSION }}
-                    fields: commit,ref,workflow,eventName
-                    author_name: ${{ github.actor }}
-                    icon_emoji: ':high_brightness:'
-                    username: "CI Build Status"
-                    text: |
-                        ${{ env.WORKFLOW_CONCLUSION }}:
-                        https://github.com/WhatsLab/android-shopperapp/actions/runs/${{ github.run_id }}
-                env:
-                    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-                    SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }} # required
+  notification_job:
+    needs: [ firebase_distribution_job ]
+    name: Notify Build Status
+    runs-on: ubuntu-latest
+    steps:
+      - uses: technote-space/workflow-conclusion-action@v1
+      - uses: 8398a7/action-slack@v3
+        with:
+          status: ${{ env.WORKFLOW_CONCLUSION }}
+          fields: commit,ref,workflow,eventName
+          author_name: ${{ github.actor }}
+          icon_emoji: ':high_brightness:'
+          username: "CI Build Status"
+          text: |
+            ${{ env.WORKFLOW_CONCLUSION }}:
+            https://github.com/WhatsLab/android-shopperapp/actions/runs/${{ github.run_id }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }} # required

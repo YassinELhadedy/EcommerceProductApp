@@ -1,165 +1,165 @@
 name: Push On Develop Branch
 
 on:
-    push:
-        branches:
-           - develop
+  push:
+    branches:
+      - develop
 
 jobs:
-    unit_test_job:
-        name: Unit_Test
-        runs-on: ubuntu-latest
-        steps:
-            -   name: Checkout
-                uses: actions/checkout@v1
+  unit_test_job:
+    name: Unit_Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
 
-            -   name: Restore Cache
-                uses: actions/cache@v2
-                with:
-                    path: |
-                        ~/.gradle/caches
-                        ~/.gradle/wrapper
-                    key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
-                    restore-keys: |
-                        ${{ runner.os }}-gradle-
-            -   name: Run Debug Tests
-                run: ./gradlew test
+      - name: Restore Cache
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+      - name: Run Debug Tests
+        run: ./gradlew test
 
-            -   name: Upload Test Reports
-                if: ${{ always() }}
-                uses: actions/upload-artifact@v2
-                with:
-                    name: test-reports
-                    path: '**/build/reports/tests/'
+      - name: Upload Test Reports
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v2
+        with:
+          name: test-reports
+          path: '**/build/reports/tests/'
 
-    lint_job:
-        name: Lint
-        runs-on: ubuntu-latest
-        steps:
+  lint_job:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
 
-            -   name: Checkout
-                uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v2
 
-            -   name: Restore Cache
-                uses: actions/cache@v2
-                with:
-                    path: |
-                        ~/.gradle/caches
-                        ~/.gradle/wrapper
-                    key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
-                    restore-keys: |
-                        ${{ runner.os }}-gradle-
-            -   name: Run Debug Lint
-                run: ./gradlew lintDebug
+      - name: Restore Cache
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+      - name: Run Debug Lint
+        run: ./gradlew lintDebug
 
-            -   name: Upload Lint Reports
-                if: ${{ always() }}
-                uses: actions/upload-artifact@v2
-                with:
-                    name: lint-report
-                    path: '**/build/reports/lint-results-*'
+      - name: Upload Lint Reports
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v2
+        with:
+          name: lint-report
+          path: '**/build/reports/lint-results-*'
 
-    sonarqube_job:
-        needs: [ unit_test_job, lint_job ]
-        name: sonarqube
-        runs-on: ubuntu-latest
-        steps:
-            -   uses: actions/checkout@v1
+  sonarqube_job:
+    needs: [ unit_test_job, lint_job ]
+    name: sonarqube
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
 
-            -   name: Set Up JDK
-                uses: actions/setup-java@v1
-                with:
-                    java-version: 11
+      - name: Set Up JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
 
-            -   name: Run Tests
-                run: ./gradlew clean testDebugUnitTest
+      - name: Run Tests
+        run: ./gradlew clean testDebugUnitTest
 
-            -   name: Cache SonarQube packages
-                uses: actions/cache@v1
-                with:
-                    path: ~/.sonar/cache
-                    key: ${{ runner.os }}-sonar
-                    restore-keys: ${{ runner.os }}-sonar
-            -   name: Cache Gradle packages
-                uses: actions/cache@v1
-                with:
-                    path: ~/.gradle/caches
-                    key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
-                    restore-keys: ${{ runner.os }}-gradle
-            -   name: Build and analyze
-                uses: actions/cache@v1
-                env:
-                    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
-                    SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-                    SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-                    run: ./gradlew sonarqube
+      - name: Cache SonarQube packages
+        uses: actions/cache@v1
+        with:
+          path: ~/.sonar/cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
+      - name: Cache Gradle packages
+        uses: actions/cache@v1
+        with:
+          path: ~/.gradle/caches
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
+          restore-keys: ${{ runner.os }}-gradle
+      - name: Build and analyze
+        uses: actions/cache@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+          run: ./gradlew sonarqube
 
 
-    firebase_distribution_job:
-        needs: [ sonarqube_job ]
-        runs-on: ubuntu-latest
-        steps:
-            -   name: Checkout
-                uses: actions/checkout@v1
+  firebase_distribution_job:
+    needs: [ sonarqube_job ]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
 
-            -   name: Restore Cache
-                uses: actions/cache@v2
-                with:
-                    path: |
-                        ~/.gradle/caches
-                        ~/.gradle/wrapper
-                    key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
-                    restore-keys: |
-                        ${{ runner.os }}-gradle-
-            -   name: Set Up JDK
-                uses: actions/setup-java@v1
-                with:
-                    java-version: 11
+      - name: Restore Cache
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+      - name: Set Up JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
 
-            -   name: Build Projects
-                run: ./gradlew assembleDebug
+      - name: Build Projects
+        run: ./gradlew assembleDebug
 
-            -   name: Upload APK
-                uses: actions/upload-artifact@v2
-                with:
-                    name: apk
-                    path: app/build/outputs/apk/debug/**.apk
+      - name: Upload APK
+        uses: actions/upload-artifact@v2
+        with:
+          name: apk
+          path: app/build/outputs/apk/debug/**.apk
 
-            #            -   name: upload artefact to App Center
-            #                uses: wzieba/AppCenter-Github-Action@v1
-            #                with:
-            #                    appName: WhatsLab/Shopper-staging
-            #                    token: ${{secrets.APP_CENTER_TOKEN}}
-            #                    group: Shopper QA
-            #                    file: app/build/outputs/apk/staging/debug/app-staging-debug.apk
-            #                    notifyTesters: true
-            #                    debug: false
+      #            -   name: upload artefact to App Center
+      #                uses: wzieba/AppCenter-Github-Action@v1
+      #                with:
+      #                    appName: WhatsLab/Shopper-staging
+      #                    token: ${{secrets.APP_CENTER_TOKEN}}
+      #                    group: Shopper QA
+      #                    file: app/build/outputs/apk/staging/debug/app-staging-debug.apk
+      #                    notifyTesters: true
+      #                    debug: false
 
-            -   name: Upload to Firebase App Distribution
-                uses: wzieba/Firebase-Distribution-Github-Action@v1.2.1
-                with:
-                    appId: ${{ secrets.FIREBASE_APP_ID }}
-                    token: ${{ secrets.FIREBASE_TOKEN }}
-                    groups: android-QA
-                    file: app/build/outputs/apk/debug/app-debug.apk
-                    debug: true
+      - name: Upload to Firebase App Distribution
+        uses: wzieba/Firebase-Distribution-Github-Action@v1.2.1
+        with:
+          appId: ${{ secrets.FIREBASE_APP_ID }}
+          token: ${{ secrets.FIREBASE_TOKEN }}
+          groups: android-QA
+          file: app/build/outputs/apk/debug/app-debug.apk
+          debug: true
 
-    notification_job:
-        needs: [ firebase_distribution_job ]
-        name: Notify Build Status
-        runs-on: ubuntu-latest
-        steps:
-            -   uses: technote-space/workflow-conclusion-action@v1
-            -   uses: 8398a7/action-slack@v3
-                with:
-                    status: ${{ env.WORKFLOW_CONCLUSION }}
-                    fields: commit,ref,workflow,eventName
-                    author_name: ${{ github.actor }}
-                    icon_emoji: ':high_brightness:'
-                    username: "CI Build Status"
-                    text: |
-                        ${{ env.WORKFLOW_CONCLUSION }}:
-                        https://github.com/WhatsLab/android-shopperapp/actions/runs/${{ github.run_id }}
-                env:
-                    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-                    SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }} # required
+  notification_job:
+    needs: [ firebase_distribution_job ]
+    name: Notify Build Status
+    runs-on: ubuntu-latest
+    steps:
+      - uses: technote-space/workflow-conclusion-action@v1
+      - uses: 8398a7/action-slack@v3
+        with:
+          status: ${{ env.WORKFLOW_CONCLUSION }}
+          fields: commit,ref,workflow,eventName
+          author_name: ${{ github.actor }}
+          icon_emoji: ':high_brightness:'
+          username: "CI Build Status"
+          text: |
+            ${{ env.WORKFLOW_CONCLUSION }}:
+            https://github.com/WhatsLab/android-shopperapp/actions/runs/${{ github.run_id }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }} # required
