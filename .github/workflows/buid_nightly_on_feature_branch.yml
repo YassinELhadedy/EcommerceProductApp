@@ -115,7 +115,7 @@ jobs:
         with:
           arg-spec: '.github/device_specs.yml:android-pixel-4'
         env:
-          SERVICE_ACCOUNT: ${{ secrets.STAGING_SERVICE_ACCOUNT }}
+          SERVICE_ACCOUNT: ${{ secrets.SERVICE_ACCOUNT }}
 
 
   notification_job:
