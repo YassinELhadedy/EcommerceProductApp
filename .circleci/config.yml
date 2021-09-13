@@ -217,7 +217,6 @@ jobs:
           path: firebase/
           destination: /firebase/
 
-
     ## Build debug APK and instrumented test APK
 
   build_debug:
