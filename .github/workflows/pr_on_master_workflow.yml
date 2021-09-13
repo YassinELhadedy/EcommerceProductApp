@@ -1,7 +1,7 @@
-name: PR Reviewed On Master Branch
+name: PR On Master Branch
 
 on:
-  pull_request_review:
+  pull_request:
     branches:
       - master
 
@@ -72,7 +72,7 @@ jobs:
       - name: Run tests on Firebase Test Lab
         uses: asadmansr/Firebase-Test-Lab-Action@v1.0
         with:
-          arg-spec: 'device_specs.yml:android-pixel-4'
+          arg-spec: '.github/device_specs.yml:android-pixel-4'
         env:
           SERVICE_ACCOUNT: ${{ secrets.SERVICE_ACCOUNT }}
 
@@ -158,7 +158,7 @@ jobs:
           appId: ${{ secrets.FIREBASE_APP_ID }}
           token: ${{ secrets.FIREBASE_TOKEN }}
           groups: android-QA
-          file: app/build/outputs/apk/Production/release/app-release.apk
+          file: app/build/outputs/apk/release/app-release.apk
           debug: false
 
   notification_job:

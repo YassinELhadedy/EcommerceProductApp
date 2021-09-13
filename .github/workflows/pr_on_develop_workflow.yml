@@ -1,7 +1,7 @@
-name: PR Reviewd On Develop Branch
+name: PR On Develop Branch
 
 on:
-  pull_request_review:
+  pull_request:
     branches:
       - develop
 jobs:
@@ -72,6 +72,6 @@ jobs:
       - name: Run tests on Firebase Test Lab
         uses: asadmansr/Firebase-Test-Lab-Action@v1.0
         with:
-          arg-spec: 'device_specs.yml:android-pixel-4'
+          arg-spec: '.github/device_specs.yml:android-pixel-4'
         env:
           SERVICE_ACCOUNT: ${{ secrets.SERVICE_ACCOUNT }}
