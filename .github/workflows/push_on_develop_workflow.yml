@@ -60,7 +60,7 @@ jobs:
 #          path: '**/build/reports/lint-results-*'
 
   sonarqube_job:
-    needs: [ unit_test_job, lint_job ]
+#    needs: [ unit_test_job, lint_job ]
     name: sonarqube
     runs-on: ubuntu-latest
     steps:
