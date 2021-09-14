@@ -72,10 +72,10 @@ jobs:
           java-version: 11
 
       - name: Run Tests
-        run: ./gradlew  testDebugUnitTest
+        run:  ./gradlew testDEBUGUnitTestCoverage
 
       - name: Run Jacoco Test Repot
-        run: ./gradlew jacocoTestReport
+        run:  ./gradlew testDEBUGUnitTestCoverage
 
       - name: Print path
         run: |-
