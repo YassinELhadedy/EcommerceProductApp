@@ -1,153 +1,43 @@
 apply plugin: 'jacoco'
 
-jacoco {
+ext {
+    coverageExclusions = [
+            '**/*Activity*.*',
+            '**/*Fragment*.*',
+            '**/R.class',
+            '**/R$*.class',
+            '**/BuildConfig.*',
+    ]
+}
 
-// This version should be same as the one defined in root project build.gradle file :
-    toolVersion = "0.8.7"
-    reportsDir = file("$buildDir/reports")
+jacoco {
+    toolVersion = '0.8.7'
+    reportsDirectory = file("$buildDir/reports")
 }
 
 tasks.withType(Test) {
     jacoco.includeNoLocationClasses = true
+    // https://github.com/gradle/gradle/issues/5184#issuecomment-457865951
     jacoco.excludes = ['jdk.internal.*']
 }
 
-project.afterEvaluate {
 
-    android.applicationVariants.all { variant ->
-
-//        def testTaskName = "test${variant.name.capitalize()}UnitTest"
-        def testTaskName = "test${variant.buildType.name.capitalize()}UnitTest"
-
-        println "testTaskName > ${testTaskName}"
-        println "testTaskName > ${testTaskName}Coverage"
-
-        task "${testTaskName}Coverage"(type: JacocoReport, dependsOn: "$testTaskName") {
-            group = "Reporting"
-            description = "Generate Jacoco coverage reports on the ${variant.name.capitalize()} build."
-
-            def excludes = [
-                    '**/R.class',
-                    '**/R$*.class',
-                    '**/*$ViewInjector*.*',
-                    '**/*$ViewBinder*.*',
-                    '**/BuildConfig.*',
-                    '**/Manifest*.*'
-            ]
-
-//Tree for all the Java classes
-            def javaClasses = fileTree(dir: variant.javaCompiler.destinationDir, excludes: excludes)
-
-            println "Test : " + javaClasses
-
-//Tree for all the Kotlin classes
-            def kotlinClasses = fileTree(dir: "${buildDir}/tmp/kotlin-classes/${variant.name}", excludes: excludes)
-
-//combined source directories
-            classDirectories.from = files([javaClasses, kotlinClasses])
-
-            def coverageSourceDirs = [
-                    "$project.projectDir/src/main/java",
-                    "$project.projectDir/src/${variant.name}/java",
-                    "$project.projectDir/src/main/kotlin",
-                    "$project.projectDir/src/${variant.name}/kotlin"
-            ]
-            additionalSourceDirs.from = files(coverageSourceDirs)
-            sourceDirectories.from = files(coverageSourceDirs)
-            executionData.from = files("${project.buildDir}/jacoco/${testTaskName}.exec")
-            reports {
-                xml.enabled = true
-                html.enabled = true
-                html.destination = file("${project.buildDir}/jacoco/")
-            }
-        }
-    }
+tasks.withType(Test) {
+    finalizedBy jacocoTestReport // report is always generated after tests run
 }
 
-//apply plugin: 'jacoco'
+task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest']) {
+    group = "Reporting"
+    description = "Generate Jacoco coverage reports for Debug build"
 
-//ext {
-//    coverageExclusions = [
-//            '**/*Activity*.*',
-//            '**/*Fragment*.*',
-//            '**/R.class',
-//            '**/R$*.class',
-//            '**/BuildConfig.*',
-//    ]
-//}
+    reports {
+        xml.enabled = true
+        html.enabled = true
+        csv.enabled false
+        html.outputLocation = layout.buildDirectory.dir('jacocoHtml')
+    }
 
-//jacoco {
-//    toolVersion = '0.8.6'
-//    reportsDir = file("$buildDir/reports")
-//}
 
-//tasks.withType(Test) {
-//    jacoco.includeNoLocationClasses = true
-//    // https://github.com/gradle/gradle/issues/5184#issuecomment-457865951
-//    jacoco.excludes = ['jdk.internal.*']
-//}
-
-//project.afterEvaluate {
-//
-//    android.applicationVariants.all { variant ->
-//        def variantName = variant.name
-//        def testTaskName = "test${variantName.capitalize()}UnitTest"
-//
-//        tasks.create(name: "${testTaskName}Coverage", type: JacocoReport, dependsOn: "$testTaskName") {
-//            group = "Reporting"
-//            description = "Generate Jacoco coverage reports for the ${variantName.capitalize()} build."
-//
-//            reports {
-//                html.enabled = true
-//                xml.enabled = true
-//            }
-//
-//            def excludes = [
-//                    '**/R.class',
-//                    '**/R$*.class',
-//                    '**/BuildConfig.*',
-//                    '**/Manifest*.*',
-//                    '**/*Test*.*',
-//                    'android/**/*.*'
-//            ]
-//            def javaClasses = fileTree(dir: variant.javaCompiler.destinationDir, excludes: excludes)
-//            def kotlinClasses = fileTree(dir: "${buildDir}/tmp/kotlin-classes/${variantName}", excludes: excludes)
-//            classDirectories.from = files([javaClasses, kotlinClasses])
-//
-//            sourceDirectories.from = files([
-//                    "$project.projectDir/src/main/java",
-//                    "$project.projectDir/src/${variantName}/java",
-//                    "$project.projectDir/src/main/kotlin",
-//                    "$project.projectDir/src/${variantName}/kotlin"
-//            ])
-//
-//            executionData.from = files("${project.buildDir}/jacoco/${testTaskName}.exec")
-//        }
-//    }
-//}
-
-//tasks.withType(Test) {
-//    finalizedBy jacocoTestReport // report is always generated after tests run
-//}
-
-//task jacocoTestReport(type: JacocoReport, dependsOn: ['testDevelopDebugUnitTest']) {
-//    group = "Reporting"
-//    description = "Generate Jacoco coverage reports for Debug build"
-//
-//    reports {
-//        xml.enabled = true
-//        html.enabled = true
-//    }
-//
-//    def debugTree = fileTree(dir: "${buildDir}/intermediates/javac/debug/classes", excludes: coverageExclusions)
-//    def mainSrc = "/src/main/java"
-//
-//    additionalSourceDirs.from = files(mainSrc)
-//    sourceDirectories.from = files([mainSrc])
-//    classDirectories.from = files([debugTree])
-//
-//    executionData.from = files("$buildDir/jacoco/testDevelopDebugUnitTest.exec")
-//}
-
+}
 //ref
 //https://androidadepth.blogspot.com/2021/01/android-and-sonarqube-with-code-coverage.html
