@@ -72,7 +72,7 @@ jobs:
           java-version: 11
 
       - name: Run Tests
-        run: ./gradlew  testDebugUnitTest
+        run: ./gradlew testReleaseUnitTest
 
       - name: Run Jacoco Test Repot
         run: ./gradlew jacocoTestReport

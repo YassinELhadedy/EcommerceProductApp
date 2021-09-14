@@ -26,7 +26,7 @@ tasks.withType(Test) {
     finalizedBy jacocoTestReport // report is always generated after tests run
 }
 
-task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest']) {
+task jacocoTestReport(type: JacocoReport, dependsOn: ['testReleaseUnitTest']) {
     group = "Reporting"
     description = "Generate Jacoco coverage reports for Debug build"
 
@@ -37,7 +37,14 @@ task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest']) {
         html.outputLocation = layout.buildDirectory.dir('jacocoHtml')
     }
 
+    def debugTree = fileTree(dir: "${buildDir}/intermediates/javac/debug/classes", excludes: coverageExclusions)
+    def mainSrc = "/src/main/java"
 
+    additionalSourceDirs.from = files(mainSrc)
+    sourceDirectories.from = files([mainSrc])
+    classDirectories.from = files([debugTree])
+
+    executionData.from = files("$buildDir/jacoco/testReleaseUnitTest.exec")
 }
 //ref
 //https://androidadepth.blogspot.com/2021/01/android-and-sonarqube-with-code-coverage.html
