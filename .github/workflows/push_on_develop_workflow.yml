@@ -72,7 +72,14 @@ jobs:
           java-version: 11
 
       - name: Run Tests
-        run: ./gradlew clean testDebugUnitTest
+        run: ./gradlew  testDebugUnitTest
+
+      - name: Run Jacoco Test Repot
+        run: ./gradlew jacocoTestReport
+
+      - name: Print path
+        run: |-
+            ls -ltR /home/
 
       - name: Cache SonarQube packages
         uses: actions/cache@v1
