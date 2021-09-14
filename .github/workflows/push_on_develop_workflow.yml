@@ -3,7 +3,7 @@ name: Push On Develop Branch
 on:
   push:
     branches:
-      - master
+      - develop
 
 jobs:
 #  unit_test_job:
