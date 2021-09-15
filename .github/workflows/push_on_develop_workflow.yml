@@ -80,7 +80,7 @@ jobs:
 
 
       - name: Run Tests
-        run: ./gradlew testDebugUnitTest
+        run: ./gradlew jacocoTestReport
 
 #      - name: Run Jacoco Test Repot
 #        run: ./gradlew jacocoTestReport
