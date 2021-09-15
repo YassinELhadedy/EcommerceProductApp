@@ -5,7 +5,7 @@ plugins {
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
 }
-apply from: 'jacoco.gradle'
+//apply from: 'jacoco.gradle'
 apply plugin: 'com.google.gms.google-services'
 apply plugin: "androidx.navigation.safeargs.kotlin"
 
@@ -30,8 +30,8 @@ sonarqube {
         property "sonar.java.coveragePlugin", "jacoco"
         property "sonar.junit.reportPaths", "**/test-results/**/*.xml"
 //        property "sonar.junit.reportPaths", "app/build/test-results/testReleaseUnitTest/*.xml"
-        property "sonar.coverage.jacoco.xmlReportPaths", "**/jacocoTestReport/jacocoTestReport.xml"
-        property "sonar.groovy.jacoco.reportPath", "**/jacocoTestReport/jacocoTestReport.xml"
+        property "sonar.coverage.jacoco.xmlReportPaths", "**/jacoco/jacocoTestReport.xml"
+        property "sonar.groovy.jacoco.reportPath", "**/jacoco/jacocoTestReport.xml"
         property "sonar.coverage.exclusions", "${coverageExclusions.join(', ')}"
     }
 }
