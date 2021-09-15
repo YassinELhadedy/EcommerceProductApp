@@ -6,7 +6,7 @@ Prerequisites for android studio:
 # Libraries & plugins 
 1- Recycler View.\
 2- Retrofit.\
-3- Cucumber (will added if u need to see complete sample please go to https://github.com/YassinELhadedy/Build-Android-App-Sample1-CompleteCycle ).\
+3- Cucumber (will added if u need to see complete sample please goto [a link](https://github.com/YassinELhadedy/Build-Android-App-Sample1-CompleteCycle) .\
 4- Dagger-Hilt.\
 5- Mockito Junit.\
 6- Esspresso UI Test (will added if u need to see complete sample please go to https://github.com/YassinELhadedy/Build-Android-App-Sample1-CompleteCycle ).\
