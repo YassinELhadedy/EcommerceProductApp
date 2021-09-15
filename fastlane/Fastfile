@@ -40,6 +40,13 @@ platform :android do
     gradle(task: "test", build_type: @build_type)
   end
 
+    desc "Do UI Tests on CircleCI"
+    lane :ui_test do
+      # Run all Tests
+      sh('cd .. && ./gradlew app:connectedAndroidTest')
+      # Run spesific Tests
+      # sh('cd .. && ./gradlew app:connectedAndroidTest -Pandroid.testInstrumentationRunnerArguments.package=<INSERT_YOUR_TEST_PACKAGE_HERE(com.app.myapp.emulatortests)>')
+  end
 
   desc "Run Sonarqube"
   lane :sonarqube_analysis do
