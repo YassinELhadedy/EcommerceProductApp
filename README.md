@@ -6,23 +6,23 @@ Prerequisites for android studio:
 # Libraries & plugins 
 1- Recycler View.\
 2- Retrofit.\
-3- Cucumber (will added if u need to see complete sample please goto [a link](https://github.com/YassinELhadedy/Build-Android-App-Sample1-CompleteCycle) .\
+3- Cucumber (will added if u need to see complete sample please goto [Ref link](https://github.com/YassinELhadedy/Build-Android-App-Sample1-CompleteCycle).\
 4- Dagger-Hilt.\
 5- Mockito Junit.\
-6- Esspresso UI Test (will added if u need to see complete sample please go to https://github.com/YassinELhadedy/Build-Android-App-Sample1-CompleteCycle ).\
+6- Esspresso UI Test (will added if u need to see complete sample please go to [Ref link](https://github.com/YassinELhadedy/Build-Android-App-Sample1-CompleteCycle).\
 7- Robolectric unit test (Parameterized).\
 8- Corotuines & Kotlin Flow.\ 
 9- Parametrized unit test.\
 10-Live Data.\
-11-Room ORM DB (will added if u need to see complete sample please goto https://github.com/YassinELhadedy/Build-Android-App-Sample1-CompleteCycle ).\
-12-JetPack Paging(will added if u need to see complete sample please goto https://github.com/YassinELhadedy/NewMovieApp).\
+11-Room ORM DB (will added if u need to see complete sample please goto [Ref link](https://github.com/YassinELhadedy/Build-Android-App-Sample1-CompleteCycle).\
+12-JetPack Paging(will added if u need to see complete sample please goto [Ref link](https://github.com/YassinELhadedy/NewMovieApp).\
 13-Navigation graph.\
 14-MVVM-Databinding.\
 15-CI/CD (Circle-CI & Fastlane) please pimg me to invite u to dashboard.\
 16-Publish on AppCenter and Google-Play.\
 17-TestCoverage (SonarQube) please pimg me to invite u to dashboard.\
 18-FireBaseTestLab.\
-19-Dynamic delivery (will added if u need to see complete sample please goto  https://github.com/googlecodelabs/android-dynamic-features).\
+19-Dynamic delivery (will added if u need to see complete sample please goto [Ref link](https://github.com/googlecodelabs/android-dynamic-features).\
 
 # User Stories
 The following required functionality is completed:
@@ -43,20 +43,20 @@ As a User(shopper) I want to be able to search for specific product item and fil
 https://www.vagrantup.com/intro/index.html
 
 # Tools and Technologies are Used :
-1- Vagrant with Libvert https://docs.cumulusnetworks.com/display/VX/Vagrant+and+Libvirt+with+KVM+or+QEMU .\
-2- Domain-Driven Design (DDD) http://www.zankavtaskin.com/2014/12/applied-domain-driven-design-ddd-part-0.html https://www.codeproject.com/Articles/339725/Domain-Driven-Design-Clear-Your-Concepts-Before-Yo .\
-3- Cucumber and Espresso https://medium.com/gumtree-dev-team/android-bdd-with-cucumber-and-espresso-the-full-guide-9c20cfcb8535 .\
+1- Vagrant with Libvert [Setup link](https://docs.cumulusnetworks.com/display/VX/Vagrant+and+Libvirt+with+KVM+or+QEMU).\
+2- Domain-Driven Design (DDD) [Tutorial link](http://www.zankavtaskin.com/2014/12/applied-domain-driven-design-ddd-part-0.html) [Tutorial link] (https://www.codeproject.com/Articles/339725/Domain-Driven-Design-Clear-Your-Concepts-Before-Yo) .\
+3- Cucumber and Espresso [Tutorial link](https://medium.com/gumtree-dev-team/android-bdd-with-cucumber-and-espresso-the-full-guide-9c20cfcb8535) .\
 4- TDD & BDD (unit test & intgration test & UI test).
-5- CircleCI CI/CD. https://proandroiddev.com/circleci-with-android-continuous-integration-3ecd98f92bd4 .\
+5- CircleCI CI/CD. [Tutorial link](https://proandroiddev.com/circleci-with-android-continuous-integration-3ecd98f92bd4) .\
 6- Kotlin with Corotuines &Flow.\
 7- Room ORM Android DB.\
 8- Mockito & Robolectric.\
-9- parmeterized unit test.https://www.tutorialspoint.com/junit/junit_parameterized_test.htm .\
+9- parmeterized unit test [Tutorial link]https://www.tutorialspoint.com/junit/junit_parameterized_test.htm) .\
 10- MVVM-DataBinding.\
-11- Android Continuous Integration using Fastlane (under dev) https://medium.com/pink-room-club/android-continuous-integration-using-fastlane-and-circleci-2-0-part-i-7204e2e7b8b.\
+11- Android Continuous Integration using Fastlane (under dev) [Tutorial link] (https://medium.com/pink-room-club/android-continuous-integration-using-fastlane-and-circleci-2-0-part-i-7204e2e7b8b).\
 12- Firebase test lab (under dev).\
 13- AWS&CircleCI(under dev).\
-14- Make Android App bundle(under dev) and dynamic delivery https://www.youtube.com/watch?v=9D63S4ZRBls.\
+14- Make Android App bundle(under dev) and dynamic delivery [Tutorial link] (https://www.youtube.com/watch?v=9D63S4ZRBls).\
 
 
 # User Acceptance Test Cases 
