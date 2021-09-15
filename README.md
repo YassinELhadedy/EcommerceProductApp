@@ -114,10 +114,10 @@ https://medium.com/android-testing-daily/the-3-tiers-of-the-android-test-pyramid
 
 # Circle-CI & Fastlane Jobs (will be added soon &  please pimg me to invite u to dashboard)
 
-# SonarQube Test-Coverage (will be added soon & please pimg me to invite u to dashboard)
+# SonarQube Test-Coverage
+
+[![SonarCloud](https://sonarcloud.io/images/project_badges/sonarcloud-white.svg)](https://sonarcloud.io/dashboard?id=YassinELhadedy_EcommerceProductApp)
 
 # Complete -Sample 
- please goto  https://github.com/YassinELhadedy/Build-Android-App-Sample1-CompleteCycle
+ please goto  [![full Sample](https://github.com/YassinELhadedy/Build-Android-App-Sample1-CompleteCycle)
 
-#Sonarqube
-[![SonarCloud](https://sonarcloud.io/images/project_badges/sonarcloud-white.svg)](https://sonarcloud.io/dashboard?id=YassinELhadedy_EcommerceProductApp)
