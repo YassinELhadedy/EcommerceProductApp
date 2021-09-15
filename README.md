@@ -22,7 +22,7 @@ Prerequisites for android studio:
 16-Publish on AppCenter and Google-Play.\
 17-TestCoverage (SonarQube) please pimg me to invite u to dashboard.\
 18-FireBaseTestLab.\
-19-Dynamic delivery (will added if u need to see complete sample please goto [Ref link](https://github.com/googlecodelabs/android-dynamic-features).\
+19-Dynamic delivery (will added if u need to see complete sample please goto [Ref link](https://github.com/googlecodelabs/android-dynamic-features).
 
 # User Stories
 The following required functionality is completed:
@@ -56,7 +56,7 @@ https://www.vagrantup.com/intro/index.html
 11- Android Continuous Integration using Fastlane (under dev) [Tutorial link](https://medium.com/pink-room-club/android-continuous-integration-using-fastlane-and-circleci-2-0-part-i-7204e2e7b8b).\
 12- Firebase test lab (under dev).\
 13- AWS&CircleCI(under dev).\
-14- Make Android App bundle(under dev) and dynamic delivery [Tutorial link](https://www.youtube.com/watch?v=9D63S4ZRBls).\
+14- Make Android App bundle(under dev) and dynamic delivery [Tutorial link](https://www.youtube.com/watch?v=9D63S4ZRBls).
 
 
 # User Acceptance Test Cases 
