@@ -4,7 +4,7 @@ Prerequisites for android studio:
 2. Also you must download and install Gherkin plugin.
 
 # Libraries & plugins 
-1. Recycler View.
+1- Recycler View.\
 2- Retrofit.
 3- Cucumber (will added if u need to see complete sample please go to https://github.com/YassinELhadedy/Build-Android-App-Sample1-CompleteCycle ).
 4- Dagger-Hilt
