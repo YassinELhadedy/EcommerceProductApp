@@ -510,6 +510,15 @@ workflows:
             branches:
               only:
                 - develop
+
+      - ui_test:
+          filters:
+            branches:
+              only:
+                - develop
+          requires:
+            - test_unit
+
       - build_debug:
           filters:
             branches:
@@ -517,6 +526,7 @@ workflows:
                 - develop
           requires:
             - test_unit
+
       - test_instrumented:
           filters:
             branches:
@@ -589,70 +599,73 @@ workflows:
 
   on_push_master_workflow:
     jobs:
-      - ui_test:
+      - test_unit:
           filters:
             branches:
               only:
                 - master
 
-        #      - build_debug:
-        #          filters:
-        #            branches:
-        #              only:
-        #                - master
-        #          requires:
-        #            - test_unit
-        #
-        #      - test_instrumented:
-        #          filters:
-        #            branches:
-        #              only:
-        #                - master
-        #          requires:
-        #            - build_debug
-        ##      - deploy_crashlytics:
-        ##          filters:
-        ##            branches:
-        ##              only:
-        ##                - master
-        ##          requires:
-        ##            - test_unit
-        #        #            - test_instrumented
-        #
-        #      - test_unit_sonar:
-        #          filters:
-        #            branches:
-        #              only:
-        #                - master
-        #          requires:
-        #            - test_unit
-        #            #            - test_instrumented
-        #
-        #      - sonarqube_build:
-        #          filters:
-        #            branches:
-        #              only:
-        #                - master
-        #          requires:
-        #            - test_unit_sonar
-        #      - deploy_app_firebase_dist:
-        #          filters:
-        #            branches:
-        #              only:
-        #                - master
-        #          requires:
-        #            #            - test_instrumented
-        #            - test_unit
-        #      - deploy_play_store:
-        #          filters:
-        #            branches:
-        #              only:
-        #                - master
-        #          requires:
-        #            - test_unit
+
+      - build_debug:
+          filters:
+            branches:
+              only:
+                - master
+          requires:
+            - test_unit
+
+      - test_instrumented:
+          filters:
+            branches:
+              only:
+                - master
+          requires:
+            - build_debug
+#      - deploy_crashlytics:
+#          filters:
+#            branches:
+#              only:
+#                - master
+#          requires:
+#            - test_unit
         #            - test_instrumented
-        ##            - deploy_crashlytics
-        #            - sonarqube_build
+
+      - test_unit_sonar:
+          filters:
+            branches:
+              only:
+                - master
+          requires:
+            - test_unit
+            #            - test_instrumented
+
+      - sonarqube_build:
+          filters:
+            branches:
+              only:
+                - master
+          requires:
+            - test_unit_sonar
+      - deploy_app_firebase_dist:
+          filters:
+            branches:
+              only:
+                - master
+          requires:
+            #            - test_instrumented
+            - test_unit
+      - deploy_play_store:
+          filters:
+            branches:
+              only:
+                - master
+          requires:
+            - test_unit
+            - test_instrumented
+#            - deploy_crashlytics
+            - sonarqube_build
+
+
         #      - test_instrumented:
         #          filters:
         #            branches:
