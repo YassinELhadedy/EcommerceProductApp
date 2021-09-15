@@ -192,8 +192,7 @@ jobs:
 
 
   ui_test:
-    docker:
-      - image: circleci/android:api-26-alpha
+    <<: *android_config
     steps:
       - run:
           name: Setup emulator
