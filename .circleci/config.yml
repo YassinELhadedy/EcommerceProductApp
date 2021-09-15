@@ -665,7 +665,6 @@ workflows:
 #            - deploy_crashlytics
             - sonarqube_build
 
-
         #      - test_instrumented:
         #          filters:
         #            branches:
