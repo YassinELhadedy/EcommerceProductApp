@@ -102,6 +102,8 @@ As a User(shopper) I want to be able to search for specific product item and fil
 # Git Fow 
 ![Gitflow](https://user-images.githubusercontent.com/15185524/60012960-8b150600-967d-11e9-9b41-fe7f1c51fe9a.png)
 
+
+
 # CI/CD FLOW 
 ![CICD](https://user-images.githubusercontent.com/15185524/60012620-b77c5280-967c-11e9-8a3f-721e7265f82b.png)
 
@@ -110,15 +112,19 @@ As a User(shopper) I want to be able to search for specific product item and fil
 
 ![alt text](https://cdn-images-1.medium.com/max/1563/1*6M7_pT_2HJR-o-AXgkHU0g.jpeg)
 
-https://medium.com/android-testing-daily/the-3-tiers-of-the-android-test-pyramid-c1211b359acd
+[Tutorial Sample](https://medium.com/android-testing-daily/the-3-tiers-of-the-android-test-pyramid-c1211b359acd)
 
 # Circle-CI & Fastlane Jobs
 
 [![CirclCI](https://www.vectorlogo.zone/logos/circleci/circleci-ar21.svg)](https://app.circleci.com/pipelines/github/YassinELhadedy/EcommerceProductApp)
 
+
+
 # SonarQube Test-Coverage
 
 [![SonarCloud](https://sonarcloud.io/images/project_badges/sonarcloud-white.svg)](https://sonarcloud.io/dashboard?id=YassinELhadedy_EcommerceProductApp)
+
+
 
 # Complete -Sample 
  please goto  [full Sample](https://github.com/YassinELhadedy/Build-Android-App-Sample1-CompleteCycle)
