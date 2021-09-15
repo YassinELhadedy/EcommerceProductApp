@@ -120,6 +120,15 @@ references:
       name: Download Android Dependencies
       command: ./gradlew androidDependencies
 
+  android_config2: &android_config2
+    working_directory: *workspace
+    macos:
+      xcode: "9.4.0"
+    shell: /bin/bash --login -eo pipefail
+    environment:
+      TERM: dumb
+      JVM_OPTS: -Xmx3200m # Look at options
+
 jobs:
   ## Run unit tests
   test_unit:
@@ -189,14 +198,7 @@ jobs:
   #      - store_artifacts:
   #          path: firebase/
   #          destination: /firebase/
-  android_config: &android_config2
-    working_directory: *workspace
-    macos:
-      xcode: "9.4.0"
-    shell: /bin/bash --login -eo pipefail
-    environment:
-      TERM: dumb
-      JVM_OPTS: -Xmx3200m # Look at options
+
 
   ui_test:
     <<: *android_config2
