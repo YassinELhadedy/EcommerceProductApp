@@ -29,7 +29,7 @@ The following required functionality is completed:
 
 As a User(shopper), I want to be able to see all Products items shown.\
 As a User(shopper) I want to be able to view product item detail details.\
-As a User(shopper) I want to be able to search for specific product item and filter by specific category.(will be added soon).\
+As a User(shopper) I want to be able to search for specific product item and filter by specific category.(will be added soon).
 
  
 # To run the enviroment using Vagrant Up & linux (ubuntu)
@@ -39,7 +39,7 @@ As a User(shopper) I want to be able to search for specific product item and fil
 3-Customize the Vagrant file according to the available one for StreetGlide.\
 4-Run "vagrant up" command using provider libvirt.\
 5-Then run vagrant ssh to access the core-os.\
-6-After accessing core-os run command "update_engine_client -check_for_update"[Setup link](https://www.vagrantup.com/intro/index.html).\
+6-After accessing core-os run command "update_engine_client -check_for_update"[Setup link](https://www.vagrantup.com/intro/index.html).
 
 
 # Tools and Technologies are Used :
