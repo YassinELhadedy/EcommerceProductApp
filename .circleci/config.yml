@@ -192,75 +192,75 @@ jobs:
   #          destination: /firebase/
 
 
-#  ui_test:
-#    working_directory: *workspace
-#    macos:
-#      xcode: "9.4.0"
-#    shell: /bin/bash --login -eo pipefail
-#    environment:
-#      TERM: dumb
-#      JVM_OPTS: -Xmx3200m # Look at options
-#    steps:
-#      - checkout
-#      # Setup Android Variables for Android Emulator
-#      - run:
-#          name: Setup environment variables
-#          command: |
-#            echo 'export PATH="$PATH:/usr/local/opt/node@8/bin:${HOME}/.yarn/bin:${HOME}/${CIRCLE_PROJECT_REPONAME}/node_modules/.bin:/usr/local/share/android-sdk/tools/bin"' >> $BASH_ENV
-#            echo 'export ANDROID_HOME="/usr/local/share/android-sdk"' >> $BASH_ENV
-#            echo 'export ANDROID_SDK_HOME="/usr/local/share/android-sdk"' >> $BASH_ENV
-#            echo 'export ANDROID_SDK_ROOT="/usr/local/share/android-sdk"' >> $BASH_ENV
-#            echo 'export QEMU_AUDIO_DRV=none' >> $BASH_ENV
-#            echo 'export JAVA_HOME=/Library/Java/Home' >> $BASH_ENV
-#      # Install Android SDK
-#      - run:
-#          name: Install Android sdk
-#          command: |
-#            HOMEBREW_NO_AUTO_UPDATE=1 brew tap homebrew/cask
-#            HOMEBREW_NO_AUTO_UPDATE=1 brew cask install android-sdk
-#      # Install Emulator
-#      - run:
-#          name: Install emulator
-#          command: (yes | sdkmanager "platform-tools" "platforms;android-26" "extras;intel;Hardware_Accelerated_Execution_Manager" "build-tools;26.0.0" "system-images;android-26;default;x86" "emulator" --verbose) || true
-#      # Gradle and ruby/fastlane dependencies
-#      - *restore_gradle_cache
-#      - *android_dependencies
-#      - *save_gradle_cache
-#
-#      - *restore_gems_cache
-#      - *ruby_dependencies
-#      - *save_gems_cache
-#      # Start emulator
-#      - run: avdmanager create avd -n Nexus_5X_API_26_x86 -k "system-images;android-26;default;x86" -d "Nexus 5X"
-#      - run: osascript ./fastlane/recording_related/dismiss_warning.scpt # Dismisses the same named computer error
-#      - run:
-#          name: Run emulator in background
-#          command: /usr/local/share/android-sdk/tools/emulator @Nexus_5X_API_26_x86 -skin 1080x2066 -memory 2048 -noaudio
-#          background: true
-#      # Tests
-#      - run:
-#          name: Run Tests
-#          command: bundle exec fastlane ui_test
-#          no_output_timeout: 30m
-#      # Store video and Test results
-#      - store_artifacts:
-#          path: /Users/distiller/src/testrecording.mov
-#      - store_artifacts:
-#          path: /Users/distiller/src/app/build/reports/androidTests/connected/index.html
+  #  ui_test:
+  #    working_directory: *workspace
+  #    macos:
+  #      xcode: "9.4.0"
+  #    shell: /bin/bash --login -eo pipefail
+  #    environment:
+  #      TERM: dumb
+  #      JVM_OPTS: -Xmx3200m # Look at options
+  #    steps:
+  #      - checkout
+  #      # Setup Android Variables for Android Emulator
+  #      - run:
+  #          name: Setup environment variables
+  #          command: |
+  #            echo 'export PATH="$PATH:/usr/local/opt/node@8/bin:${HOME}/.yarn/bin:${HOME}/${CIRCLE_PROJECT_REPONAME}/node_modules/.bin:/usr/local/share/android-sdk/tools/bin"' >> $BASH_ENV
+  #            echo 'export ANDROID_HOME="/usr/local/share/android-sdk"' >> $BASH_ENV
+  #            echo 'export ANDROID_SDK_HOME="/usr/local/share/android-sdk"' >> $BASH_ENV
+  #            echo 'export ANDROID_SDK_ROOT="/usr/local/share/android-sdk"' >> $BASH_ENV
+  #            echo 'export QEMU_AUDIO_DRV=none' >> $BASH_ENV
+  #            echo 'export JAVA_HOME=/Library/Java/Home' >> $BASH_ENV
+  #      # Install Android SDK
+  #      - run:
+  #          name: Install Android sdk
+  #          command: |
+  #            HOMEBREW_NO_AUTO_UPDATE=1 brew tap homebrew/cask
+  #            HOMEBREW_NO_AUTO_UPDATE=1 brew cask install android-sdk
+  #      # Install Emulator
+  #      - run:
+  #          name: Install emulator
+  #          command: (yes | sdkmanager "platform-tools" "platforms;android-26" "extras;intel;Hardware_Accelerated_Execution_Manager" "build-tools;26.0.0" "system-images;android-26;default;x86" "emulator" --verbose) || true
+  #      # Gradle and ruby/fastlane dependencies
+  #      - *restore_gradle_cache
+  #      - *android_dependencies
+  #      - *save_gradle_cache
+  #
+  #      - *restore_gems_cache
+  #      - *ruby_dependencies
+  #      - *save_gems_cache
+  #      # Start emulator
+  #      - run: avdmanager create avd -n Nexus_5X_API_26_x86 -k "system-images;android-26;default;x86" -d "Nexus 5X"
+  #      - run: osascript ./fastlane/recording_related/dismiss_warning.scpt # Dismisses the same named computer error
+  #      - run:
+  #          name: Run emulator in background
+  #          command: /usr/local/share/android-sdk/tools/emulator @Nexus_5X_API_26_x86 -skin 1080x2066 -memory 2048 -noaudio
+  #          background: true
+  #      # Tests
+  #      - run:
+  #          name: Run Tests
+  #          command: bundle exec fastlane ui_test
+  #          no_output_timeout: 30m
+  #      # Store video and Test results
+  #      - store_artifacts:
+  #          path: /Users/distiller/src/testrecording.mov
+  #      - store_artifacts:
+  #          path: /Users/distiller/src/app/build/reports/androidTests/connected/index.html
 
-    ui_test:
-      <<: *android_config
-      steps:
-        - run:
-            name: Setup emulator
-            command: sdkmanager "system-images;android-22;default;armeabi-v7a" && echo "no" | avdmanager create avd -n test -k "system-images;android-22;default;armeabi-v7a"
-        - run:
-            name: Launch emulator
-            command: export LD_LIBRARY_PATH=${ANDROID_HOME}/emulator/lib64:${ANDROID_HOME}/emulator/qemu/linux-x86_64/qemu-system-i386 && emulator64-arm -avd test -noaudio -no-boot-anim -no-window -accel on
-            background: true
-        - run:
-            name: Run Tests
-            command: ./gradlew connectedAndroidTest
+  ui_test:
+    <<: *android_config
+    steps:
+      - run:
+          name: Setup emulator
+          command: sdkmanager "system-images;android-22;default;armeabi-v7a" && echo "no" | avdmanager create avd -n test -k "system-images;android-22;default;armeabi-v7a"
+      - run:
+          name: Launch emulator
+          command: export LD_LIBRARY_PATH=${ANDROID_HOME}/emulator/lib64:${ANDROID_HOME}/emulator/qemu/linux-x86_64/qemu-system-i386 && emulator64-arm -avd test -noaudio -no-boot-anim -no-window -accel on
+          background: true
+      - run:
+          name: Run Tests
+          command: ./gradlew connectedAndroidTest
 
 
   #  ui_test:
