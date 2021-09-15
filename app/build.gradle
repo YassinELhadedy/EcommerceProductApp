@@ -6,9 +6,29 @@ plugins {
     id 'dagger.hilt.android.plugin'
 }
 //apply from: 'jacoco.gradle'
+apply plugin: 'jacoco'
 apply plugin: 'com.google.gms.google-services'
 apply plugin: "androidx.navigation.safeargs.kotlin"
 
+
+task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest', 'createDebugCoverageReport']) {
+
+    reports {
+        xml.enabled = true
+        html.enabled = true
+    }
+
+    def fileFilter = ['**/R.class', '**/R$*.class', '**/BuildConfig.*', '**/Manifest*.*', '**/*Test*.*', 'android/**/*.*']
+    def debugTree = fileTree(dir: "${buildDir}/intermediates/classes/debug", excludes: fileFilter)
+    def mainSrc = "${project.projectDir}/src/main/java"
+
+    sourceDirectories.setFrom(files([mainSrc]))
+    classDirectories.setFrom(files([debugTree]))
+    executionData.setFrom(fileTree(dir: "$buildDir", includes: [
+            "jacoco/testDebugUnitTest.exec",
+            "outputs/code-coverage/connected/*coverage.ec"
+    ]))
+}
 
 sonarqube {
     properties {
@@ -28,10 +48,10 @@ sonarqube {
                 '**/.gradle/**,' +
                 '**/R.class'
         property "sonar.java.coveragePlugin", "jacoco"
-        property "sonar.junit.reportPaths", "**/test-results/**/*.xml"
+//        property "sonar.junit.reportPaths", "**/test-results/**/*.xml"
 //        property "sonar.junit.reportPaths", "app/build/test-results/testReleaseUnitTest/*.xml"
-        property "sonar.coverage.jacoco.xmlReportPaths", "**/jacoco/jacocoTestReport.xml"
-        property "sonar.groovy.jacoco.reportPath", "**/jacoco/jacocoTestReport.xml"
+        property "sonar.coverage.jacoco.xmlReportPaths", "app/build/reports/coverage/androidTest/debug/report.xml"
+        property "sonar.groovy.jacoco.reportPath", "app/build/reports/coverage/androidTest/debug/report.xml"
 //        property "sonar.coverage.exclusions", "${coverageExclusions.join(', ')}"
     }
 }
@@ -78,6 +98,11 @@ android {
             // Any other configurations
 
             all {
+                jacoco {
+                    includeNoLocationClasses = true
+                }
+                unitTests.returnDefaultValues = true
+
                 maxHeapSize = "1024m"
             }
         }
