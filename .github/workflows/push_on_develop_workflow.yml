@@ -59,8 +59,40 @@ jobs:
 #          name: lint-report
 #          path: '**/build/reports/lint-results-*'
 
+  android_test_job:
+    name: Android Test
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v2
+
+
+      - name: Restore Cache
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+      - name: Run Android Tests
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 29
+          script: ./gradlew connectedAndroidTest
+
+      - name: Upload Android Test Reports
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v2
+        with:
+          name: android-test-reports
+          path: '**/build/reports/androidTests/'
+
   sonarqube_job:
-#    needs: [ unit_test_job, lint_job ]
+    needs: [ android_test_job ]
     name: sonarqube
     runs-on: ubuntu-latest
     steps:
@@ -70,14 +102,6 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 11
-
-      # Execute unit tests
-      - name: Unit Test with Android Emulator Runner
-        uses: ReactiveCircus/android-emulator-runner@v2.14.3
-        with:
-          api-level: 29
-          script: ./gradlew connectedCheck
-
 
       - name: Run Tests
         run: ./gradlew jacocoTestReport
