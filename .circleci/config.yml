@@ -257,7 +257,7 @@ ui_test:
           command: gcloud auth activate-service-account firebase-adminsdk-4ltda@ecommerce-35eeb.iam.gserviceaccount.com --key-file ${HOME}/client-secret.json
       - run:
           name: Run instrumented test on Firebase Test Lab
-#          command: gcloud alpha firebase test android run --app app/build/outputs/apk/debug/app-debug.apk --test app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk --results-bucket cloud-test-${GOOGLE_PROJECT_ID}
+          #          command: gcloud alpha firebase test android run --app app/build/outputs/apk/debug/app-debug.apk --test app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk --results-bucket cloud-test-${GOOGLE_PROJECT_ID}
           command: gcloud alpha firebase test android run --type instrumentation --app app/build/outputs/apk/debug/app-debug.apk --test mobile/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk --device model=sailfish,version=26,locale=en_US,orientation=portrait --environment-variables coverage=true,coverageFile=/sdcard/tmp/code-coverage/connected/coverage.ec --directories-to-pull=/sdcard/tmp --timeout 20m
       - run:
           name: Create directory to store test results
@@ -448,13 +448,13 @@ workflows:
                 - develop
           requires:
             - build_debug
-#      - deploy_crashlytics:
-#          filters:
-#            branches:
-#              only:
-#                - develop
-#          requires:
-#            - test_instrumented
+      #      - deploy_crashlytics:
+      #          filters:
+      #            branches:
+      #              only:
+      #                - develop
+      #          requires:
+      #            - test_instrumented
       - test_unit_sonar:
           filters:
             branches:
@@ -519,64 +519,64 @@ workflows:
               only:
                 - master
 
-#      - build_debug:
-#          filters:
-#            branches:
-#              only:
-#                - master
-#          requires:
-#            - test_unit
-#
-#      - test_instrumented:
-#          filters:
-#            branches:
-#              only:
-#                - master
-#          requires:
-#            - build_debug
-##      - deploy_crashlytics:
-##          filters:
-##            branches:
-##              only:
-##                - master
-##          requires:
-##            - test_unit
-#        #            - test_instrumented
-#
-#      - test_unit_sonar:
-#          filters:
-#            branches:
-#              only:
-#                - master
-#          requires:
-#            - test_unit
-#            #            - test_instrumented
-#
-#      - sonarqube_build:
-#          filters:
-#            branches:
-#              only:
-#                - master
-#          requires:
-#            - test_unit_sonar
-#      - deploy_app_firebase_dist:
-#          filters:
-#            branches:
-#              only:
-#                - master
-#          requires:
-#            #            - test_instrumented
-#            - test_unit
-#      - deploy_play_store:
-#          filters:
-#            branches:
-#              only:
-#                - master
-#          requires:
-#            - test_unit
-#            - test_instrumented
-##            - deploy_crashlytics
-#            - sonarqube_build
+        #      - build_debug:
+        #          filters:
+        #            branches:
+        #              only:
+        #                - master
+        #          requires:
+        #            - test_unit
+        #
+        #      - test_instrumented:
+        #          filters:
+        #            branches:
+        #              only:
+        #                - master
+        #          requires:
+        #            - build_debug
+        ##      - deploy_crashlytics:
+        ##          filters:
+        ##            branches:
+        ##              only:
+        ##                - master
+        ##          requires:
+        ##            - test_unit
+        #        #            - test_instrumented
+        #
+        #      - test_unit_sonar:
+        #          filters:
+        #            branches:
+        #              only:
+        #                - master
+        #          requires:
+        #            - test_unit
+        #            #            - test_instrumented
+        #
+        #      - sonarqube_build:
+        #          filters:
+        #            branches:
+        #              only:
+        #                - master
+        #          requires:
+        #            - test_unit_sonar
+        #      - deploy_app_firebase_dist:
+        #          filters:
+        #            branches:
+        #              only:
+        #                - master
+        #          requires:
+        #            #            - test_instrumented
+        #            - test_unit
+        #      - deploy_play_store:
+        #          filters:
+        #            branches:
+        #              only:
+        #                - master
+        #          requires:
+        #            - test_unit
+        #            - test_instrumented
+        ##            - deploy_crashlytics
+        #            - sonarqube_build
         #      - test_instrumented:
         #          filters:
         #            branches:
