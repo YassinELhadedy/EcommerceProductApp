@@ -395,13 +395,13 @@ workflows:
                 - develop
           requires:
             - build_debug
-      - deploy_crashlytics:
-          filters:
-            branches:
-              only:
-                - develop
-          requires:
-            - test_instrumented
+#      - deploy_crashlytics:
+#          filters:
+#            branches:
+#              only:
+#                - develop
+#          requires:
+#            - test_instrumented
       - test_unit_sonar:
           filters:
             branches:
@@ -481,13 +481,13 @@ workflows:
                 - master
           requires:
             - build_debug
-      - deploy_crashlytics:
-          filters:
-            branches:
-              only:
-                - master
-          requires:
-            - test_unit
+#      - deploy_crashlytics:
+#          filters:
+#            branches:
+#              only:
+#                - master
+#          requires:
+#            - test_unit
         #            - test_instrumented
 
       - test_unit_sonar:
@@ -522,7 +522,7 @@ workflows:
           requires:
             - test_unit
             - test_instrumented
-            - deploy_crashlytics
+#            - deploy_crashlytics
             - sonarqube_build
         #      - test_instrumented:
         #          filters:
