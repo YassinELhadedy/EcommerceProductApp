@@ -112,7 +112,9 @@ As a User(shopper) I want to be able to search for specific product item and fil
 
 https://medium.com/android-testing-daily/the-3-tiers-of-the-android-test-pyramid-c1211b359acd
 
-# Circle-CI & Fastlane Jobs (will be added soon &  please pimg me to invite u to dashboard)
+# Circle-CI & Fastlane Jobs
+
+[![CirclCI](https://www.vectorlogo.zone/logos/circleci/circleci-ar21.svg)](https://app.circleci.com/pipelines/github/YassinELhadedy/EcommerceProductApp)
 
 # SonarQube Test-Coverage
 
