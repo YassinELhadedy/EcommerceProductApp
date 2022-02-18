@@ -9,4 +9,9 @@
     <color name="white">#FFFFFFFF</color>
     <color name="orange">#ff9d2d</color>
 
+
+    <color name="bottom_bar_title">#000000</color>
+    <color name="color_my_orders">#FFFFFF</color>
+    <color name="transparent">#00000000</color>
+
 </resources>

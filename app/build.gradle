@@ -82,6 +82,9 @@ android {
             }
         }
     }
+    buildFeatures {
+        viewBinding true
+    }
 }
 
 ext {

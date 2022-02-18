@@ -22,11 +22,10 @@ import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
-
 @InternalCoroutinesApi
 @ExperimentalPagingApi
 @AndroidEntryPoint
-class ProductListFragment : Fragment(), OnItemClickListener {
+class HomeFragment : Fragment(), OnItemClickListener {
     @ExperimentalPagingApi
     private val productViewModel: ProductViewModel by activityViewModels()
     private lateinit var viewDataBinding: FragmentProductListBinding
@@ -108,7 +107,7 @@ class ProductListFragment : Fragment(), OnItemClickListener {
 
     private fun openProductDetailFragment(productId: Int) {
         val action =
-            ProductListFragmentDirections.actionProductListFragmentToProductDetailFragment(
+            HomeFragmentDirections.actionProductListFragmentToProductDetailFragment(
                 productId
             )
         findNavController().navigate(action)

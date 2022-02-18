@@ -5,4 +5,9 @@
     <string name="not_authorized_error_happen_try_again">please call support team</string>
     <string name="not_found_error_happen_try_again">Product not found</string>
 
+
+    <string name="home">Home</string>
+    <string name="menu_discover">Discover</string>
+    <string name="menu_my_fash_hub">My fashHub</string>
+
 </resources>

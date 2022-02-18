@@ -18,7 +18,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.products.ProductListFragment">
+    tools:context=".ui.products.HomeFragment">
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/new_product_srl_refresh"
         android:layout_width="match_parent"

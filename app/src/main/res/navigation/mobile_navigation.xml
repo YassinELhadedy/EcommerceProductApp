@@ -3,11 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@+id/productListFragment">
+    app:startDestination="@+id/homeFragment">
 
     <fragment
-        android:id="@+id/productListFragment"
-        android:name="com.jumia.myapplication.ui.products.ProductListFragment"
+        android:id="@+id/homeFragment"
+        android:name="com.jumia.myapplication.ui.products.HomeFragment"
         tools:layout="@layout/fragment_product_list" >
 
         <action
@@ -27,5 +27,15 @@
             app:argType="integer" />
 
     </fragment>
+    <fragment
+        android:id="@+id/discoverFragment"
+        android:name="com.jumia.myapplication.ui.discover.DiscoverFragment"
+        android:label="fragment_discover"
+        tools:layout="@layout/fragment_discover" />
+    <fragment
+        android:id="@+id/myFashHubFragment"
+        android:name="com.jumia.myapplication.ui.myfashhub.MyFashHubFragment"
+        android:label="fragment_my_fash_hub"
+        tools:layout="@layout/fragment_my_fash_hub" />
 
 </navigation>
