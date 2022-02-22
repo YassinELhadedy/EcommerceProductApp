@@ -1,5 +1,6 @@
 package com.jumia.myapplication.ui.feed
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,18 +9,20 @@ import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.jumia.myapplication.databinding.FragmentFeedBinding
+import com.jumia.myapplication.ui.MainViewModel
+import com.jumia.myapplication.ui.Navigator
 import com.jumia.myapplication.ui.exception.ErrorMessageFactory
 import com.jumia.myapplication.ui.feed.adapter.FeedStoryAdapter
 import com.jumia.myapplication.ui.feed.adapter.OnItemClickListener
 import com.jumia.myapplication.ui.feed.adapter.ProductAdapter
 import com.jumia.myapplication.ui.feed.adapter.StoryOnItemClickListener
+import com.jumia.myapplication.ui.util.Event
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.flow.*
@@ -29,8 +32,8 @@ import kotlinx.coroutines.launch
 @ExperimentalPagingApi
 @AndroidEntryPoint
 class FeedFragment : Fragment(), OnItemClickListener, StoryOnItemClickListener {
-    @ExperimentalPagingApi
-    private val productViewModel: ProductViewModel by activityViewModels()
+    private val mainViewModel: MainViewModel by activityViewModels()
+    private val productViewModel: ProductViewModel by viewModels()
     private lateinit var viewDataBinding: FragmentFeedBinding
     private lateinit var adapter: ProductAdapter
     private lateinit var feedStoryAdapter: FeedStoryAdapter
@@ -93,12 +96,7 @@ class FeedFragment : Fragment(), OnItemClickListener, StoryOnItemClickListener {
 
         feedStoryAdapter = FeedStoryAdapter(
             listOf(
-                FeedStoryModel(
-                    "",
-                    "https://i.imgur.com/N0XsVNk.png",
-                    true,
-                    ""
-                ),
+                FeedStoryModel("", "https://i.imgur.com/N0XsVNk.png", true, ""),
                 FeedStoryModel("", "https://i.imgur.com/N0XsVNk.png", true, ""),
                 FeedStoryModel("", "https://i.imgur.com/N0XsVNk.png", false, ""),
                 FeedStoryModel("", "https://i.imgur.com/N0XsVNk.png", false, ""),
@@ -116,6 +114,7 @@ class FeedFragment : Fragment(), OnItemClickListener, StoryOnItemClickListener {
         adapter.refresh()
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun getProducts() {
         lifecycleScope.launch {
             productViewModel.getProducts(
@@ -132,15 +131,7 @@ class FeedFragment : Fragment(), OnItemClickListener, StoryOnItemClickListener {
         }
     }
 
-    private fun openProductDetailFragment(productId: Int) {
-        val action =
-            FeedFragmentDirections.actionFeedFragmentToProductDetailFragment(
-                productId
-            )
-        findNavController().navigate(action)
-    }
-
-    override fun onItemClick(productId: String?) {
-        openProductDetailFragment(productId?.toInt() ?: 0)
+    override fun onItemClick(navigator: Navigator) {
+        mainViewModel.navigationJourney.value = Event(navigator)
     }
 }

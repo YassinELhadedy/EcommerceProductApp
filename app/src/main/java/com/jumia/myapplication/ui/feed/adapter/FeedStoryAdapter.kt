@@ -6,6 +6,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.jumia.myapplication.R
 import com.jumia.myapplication.databinding.FeedStoryItemBinding
+import com.jumia.myapplication.ui.NavigationJourney
+import com.jumia.myapplication.ui.Navigator
 import com.jumia.myapplication.ui.feed.FeedStoryModel
 import com.jumia.myapplication.ui.util.click.setSafeOnClickListener
 
@@ -27,12 +29,12 @@ class FeedStoryAdapter(private val stories:List<FeedStoryModel>, private val lis
     override fun onBindViewHolder(holder: FeedStoryViewHolder, position: Int) {
         holder.feedStoryItemBinding.item = stories[position]
         holder.itemView.setSafeOnClickListener {
-            listener.onItemClick(stories[position].id)
+            listener.onItemClick(Navigator(NavigationJourney.STORY_DETAIL))
         }
     }
 
     override fun getItemCount(): Int =stories.size
 }
 interface StoryOnItemClickListener {
-    fun onItemClick(productId: String?)
+    fun onItemClick(navigator: Navigator)
 }
