@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <import type="androidx.core.content.ContextCompat" />
+
+        <import type="android.text.TextUtils" />
+
+        <variable
+            name="viewmodel"
+            type="com.jumia.myapplication.ui.feed.ProductViewModel" />
+
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.feed.FeedFragment">
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/new_product_srl_refresh"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical" >
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/feedStoriesRV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:orientation="horizontal"
+                android:padding="5dp"
+                tools:itemCount="10"
+                tools:listitem="@layout/feed_story_item" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/new_product_rv_all_invoices"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="8dp"
+                tools:itemCount="10"
+                tools:listitem="@layout/item_product_cards" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

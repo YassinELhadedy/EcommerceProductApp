@@ -1,4 +1,4 @@
-package com.jumia.myapplication.ui.products
+package com.jumia.myapplication.ui.feed
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,7 +12,7 @@ import androidx.paging.ExperimentalPagingApi
 import com.jumia.myapplication.databinding.FragmentProductDetailBinding
 import com.jumia.myapplication.domain.Product
 import com.jumia.myapplication.ui.exception.ErrorMessageFactory
-import com.jumia.myapplication.ui.products.adapter.ProductDetailAdapter
+import com.jumia.myapplication.ui.feed.adapter.ProductDetailAdapter
 import com.jumia.myapplication.ui.util.progress.WaitingDialog
 import com.jumia.myapplication.ui.util.state.Status
 import dagger.hilt.android.AndroidEntryPoint

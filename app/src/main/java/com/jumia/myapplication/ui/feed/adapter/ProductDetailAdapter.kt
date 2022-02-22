@@ -1,4 +1,4 @@
-package com.jumia.myapplication.ui.products.adapter
+package com.jumia.myapplication.ui.feed.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

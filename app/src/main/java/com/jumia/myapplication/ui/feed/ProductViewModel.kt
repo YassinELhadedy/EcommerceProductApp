@@ -1,4 +1,4 @@
-package com.jumia.myapplication.ui.products
+package com.jumia.myapplication.ui.feed
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -37,3 +37,10 @@ class ProductViewModel @Inject constructor(private val productRepo: ProductRepo)
 
     fun getProducts(): Flow<PagingData<Product>> = productRepo.getAllWithPagination().cachedIn(viewModelScope)
 }
+
+class FeedStoryModel(
+    var id: String = "",
+    var imageUrl: String = "",
+    var isOpened: Boolean = false,
+    var name: String = ""
+)

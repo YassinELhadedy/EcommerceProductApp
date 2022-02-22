@@ -13,13 +13,13 @@
 
         <variable
             name="viewmodel"
-            type="com.jumia.myapplication.ui.products.ProductViewModel" />
+            type="com.jumia.myapplication.ui.feed.ProductViewModel" />
 
     </data>
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.products.ProductDetailFragment">
+    tools:context=".ui.feed.ProductDetailFragment">
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewpager"

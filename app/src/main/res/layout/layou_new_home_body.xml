@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <import type="androidx.core.content.ContextCompat" />
+
+        <variable
+            name="homeFragment"
+            type="com.jumia.myapplication.ui.home.HomeFragment" />
+
+        <variable
+            name="viewmodel"
+            type="com.jumia.myapplication.ui.home.HomeViewModel" />
+
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:background="@color/white"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appBarLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/transparent"
+            android:fitsSystemWindows="true"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:id="@+id/collapsing_toolbar"
+                style="@style/ToolBarStyle.Event"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/transparent"
+                android:fitsSystemWindows="true"
+                app:collapsedTitleTextAppearance="@style/TextAppearance.MyApp.Title.Collapsed"
+                app:expandedTitleMarginEnd="35dp"
+                app:expandedTitleMarginStart="35dp"
+                app:expandedTitleTextAppearance="@style/TextAppearance.MyApp.Title.Expanded"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+                <include
+                    android:id="@+id/include_layout_new_main_services"
+                    layout="@layout/layout_new_main_services"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="visible"
+                    app:homeFragment="@{homeFragment}"
+                    app:viewmodel="@{viewmodel}"
+                    app:layout_anchor="@+id/appBarLayout"
+                    app:layout_anchorGravity="center"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipeRefreshIndustry"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/snow_7"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            app:refreshing="@{false}"
+            >
+
+            <FrameLayout
+                android:id="@+id/pagerContainer"
+                android:background="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/fragmentIndustryVP"
+                    android:name="androidx.navigation.fragment.NavHostFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </FrameLayout>
+
+
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

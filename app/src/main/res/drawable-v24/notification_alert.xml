@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="19.23dp"
+    android:height="22dp"
+    android:viewportWidth="19.23"
+    android:viewportHeight="22">
+    <path
+        android:fillColor="@color/notification_icon"
+        android:pathData="M9.617,0a2.928,2.928 0,0 0,-2.925 2.925v1.15h1.5L8.192,2.925a1.425,1.425 0,0 1,2.85 0v1.15h1.5L12.542,2.925A2.928,2.928 0,0 0,9.617 0Z" />
+    <path
+        android:fillColor="@color/notification_icon"
+        android:pathData="M9.617,2.825a7.705,7.705 0,0 0,-7.642 7.75v4.1h1.494v-4.1a6.149,6.149 0,1 1,12.3 0v4.1h1.494v-4.1A7.705,7.705 0,0 0,9.617 2.825Z" />
+    <path
+        android:fillColor="@color/notification_icon"
+        android:pathData="M11.667,18.45a2.052,2.052 0,0 1,-2.05 2.05h-0.05a2.052,2.052 0,0 1,-2.05 -2.05h-1.5a3.554,3.554 0,0 0,3.55 3.55h0.05a3.554,3.554 0,0 0,3.55 -3.55Z" />
+    <path
+        android:fillColor="@color/notification_icon"
+        android:pathData="M16.544,13.9L2.691,13.9a2.7,2.7 0,0 0,0 5.4L16.544,19.3a2.7,2.7 0,0 0,0 -5.4ZM16.544,17.8L2.691,17.8a1.2,1.2 0,0 1,0 -2.4L16.544,15.4a1.2,1.2 0,0 1,1.2 1.182A1.215,1.215 0,0 1,16.544 17.8Z" />
+    <path
+        android:fillColor="#de3f3f"
+        android:pathData="M8.601,7.461a4.3,4.3 0,1 1,-4.3 -4.3A4.3,4.3 0,0 1,8.601 7.461ZM8.601,7.461" />
+</vector>
+

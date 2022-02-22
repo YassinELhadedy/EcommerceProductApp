@@ -13,5 +13,26 @@
     <color name="bottom_bar_title">#000000</color>
     <color name="color_my_orders">#FFFFFF</color>
     <color name="transparent">#00000000</color>
+    <color name="taupe">#363636</color>
+    <color name="landing_header_address_font">#2c2c2c</color>
+    <color name="dim_gray">#696969</color>
+    <color name="search_bar_icon">#000</color>
+    <color name="search_bar_icon1">#FF000000</color>
+    <color name="color_card_food_item">#ffffff</color>
+    <color name="manatee">#9b9b9b</color>
+    <color name="color_notification">#c7c7c7</color>
+    <color name="notification_icon">#FF000000</color>
+    <color name="landing_search_bar_background">#fcfcfc</color>
+    <color name="home_food_type_title_font">#AFAFAF</color>
+    <color name="landing_search_bar_hint_font">#CCCCCC</color>
+    <color name="snow_7">#f7f7f7</color>
+    <color name="red_orange">#F05252</color>
+    <color name="medium_turquose">#5bd9d4</color>
+    <color name="outrageous_orange">#ff6a46</color>
+    <color name="purble_heart">#613f98</color>
+    <color name="colorPrimaryDark">#ffcc24</color>
+    <color name="colorAccent">#faaf3b</color>
+    <color name="bottom_bar_background">#FFFFFF</color>
+    <color name="home_food_category_font">#434343</color>
 
 </resources>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="@color/color_notification">
+    <item android:id="@android:id/mask">
+        <shape xmlns:android="http://schemas.android.com/apk/res/android"
+            android:shape="oval">
+
+
+            <solid android:color="@android:color/transparent"
+
+                />
+            <!--            <corners android:radius="10dp" />-->
+
+
+            <!--            <stroke-->
+            <!--                android:width="2dp"-->
+            <!--                android:color="@color/white" />-->
+        </shape>
+    </item>
+
+    <item android:id="@android:id/background">
+        <shape xmlns:android="http://schemas.android.com/apk/res/android"
+            android:shape="oval">
+
+
+            <solid android:color="@android:color/transparent"
+
+                />
+            <!--            <corners android:radius="10dp" />-->
+
+
+            <!--            <stroke-->
+            <!--                android:width="2dp"-->
+            <!--                android:color="@color/white" />-->
+        </shape>
+    </item>
+</ripple>

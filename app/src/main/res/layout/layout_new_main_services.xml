@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View" />
+
+        <import type="com.jumia.myapplication.ui.home.Menu"/>
+        <variable
+            name="homeFragment"
+            type="com.jumia.myapplication.ui.home.HomeFragment" />
+        <variable
+            name="viewmodel"
+            type="com.jumia.myapplication.ui.home.HomeViewModel" />
+    </data>
+
+    <HorizontalScrollView
+        android:id="@+id/horizontalScrollViewMenu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:paddingStart="10dp"
+        android:paddingEnd="15dp"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="start"
+            android:animateLayoutChanges="true">
+
+
+            <!--Food-->
+            <LinearLayout
+                android:id="@+id/linearFood"
+                style="@style/industryStyle"
+                android:onClick="@{(v)->homeFragment.switchMenuPager(Menu.FEED)}"
+                android:background="@drawable/bg_menu_food">
+
+                <ImageView
+                    style="@style/industryIconStyle"
+                    android:src="@drawable/ic_xmlid_26__8"
+                    tools:ignore="@null,ContentDescription" />
+
+                <TextView
+                    android:id="@+id/tvFoodMenu"
+                    style="@style/industryTextStyle"
+                    android:visibility="@{viewmodel.fragmentMenuSelected == Menu.FEED ? View.VISIBLE : View.GONE}"
+                    android:text="@string/food" />
+            </LinearLayout>
+
+
+            <!--Pharmacy-->
+            <LinearLayout
+                android:id="@+id/linearPharmacy"
+                style="@style/industryStyle"
+                android:onClick="@{(v)->homeFragment.switchMenuPager(Menu.RELEAEDDROBS)}"
+                android:background="@drawable/bg_menu_pharmacy">
+
+                <ImageView
+                    style="@style/industryIconStyle"
+                    android:src="@drawable/ic_pill"
+                    tools:ignore="@null,ContentDescription" />
+
+                <TextView
+                    android:id="@+id/tvPharmacyMenu"
+                    style="@style/industryTextStyle"
+                    android:text="@string/pharmacy"
+                    android:visibility="@{viewmodel.fragmentMenuSelected == Menu.RELEAEDDROBS ? View.VISIBLE : View.GONE}"
+                    />
+
+
+            </LinearLayout>
+
+
+            <!--Grocery-->
+            <LinearLayout
+                android:id="@+id/linearGrocery"
+                style="@style/industryStyle"
+                android:onClick="@{(v)->homeFragment.switchMenuPager(Menu.FUTUREDROBS)}"
+                android:background="@drawable/bg_menu_grocery">
+
+                <ImageView
+                    style="@style/industryIconStyle"
+                    android:src="@drawable/ic_supermarket_home"
+                    tools:ignore="@null,ContentDescription" />
+
+                <TextView
+                    android:id="@+id/tvGroceryMenu"
+                    style="@style/industryTextStyle"
+                    android:text="@string/supermarket"
+                    android:visibility="@{viewmodel.fragmentMenuSelected == Menu.FUTUREDROBS ? View.VISIBLE : View.GONE}" />
+            </LinearLayout>
+
+
+            <!--Package-->
+            <LinearLayout
+                android:id="@+id/linearPackage"
+                style="@style/industryStyle"
+                android:onClick="@{(v)->homeFragment.switchMenuPager(Menu.TOPRATEDDROBS)}"
+                android:background="@drawable/bg_menu_package">
+
+                <ImageView
+                    style="@style/industryIconStyle"
+                    android:src="@drawable/ic_icon_feather_send"
+                    tools:ignore="@null,ContentDescription" />
+
+                <TextView
+                    android:id="@+id/tvPackageMenu"
+                    style="@style/industryTextStyle"
+                    android:text="@string/send_package"
+                    android:visibility="@{viewmodel.fragmentMenuSelected == Menu.TOPRATEDDROBS ? View.VISIBLE : View.GONE}"
+                   />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </HorizontalScrollView>
+</layout>

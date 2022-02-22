@@ -10,4 +10,15 @@
     <string name="menu_discover">Discover</string>
     <string name="menu_my_fash_hub">My fashHub</string>
 
+    <string name="delivering_to">Delivery to,</string>
+    <string name="write_the_store_name">Write the store name</string>
+    <string name="what_would_like_to_order">What would you like to order...</string>
+    <string name="food">Food</string>
+    <string name="pharmacy">Pharmacy</string>
+    <string name="supermarket">Supermarket</string>
+    <string name="send_package">Send Thing</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
 </resources>

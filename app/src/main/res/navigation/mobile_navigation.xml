@@ -7,20 +7,11 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.jumia.myapplication.ui.products.HomeFragment"
-        tools:layout="@layout/fragment_product_list" >
-
-        <action
-            android:id="@+id/action_productListFragment_to_productDetailFragment"
-            app:destination="@id/productDetailFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"/>
-    </fragment>
+        android:name="com.jumia.myapplication.ui.home.HomeFragment"
+        tools:layout="@layout/fragment_product_list" />
     <fragment
         android:id="@+id/productDetailFragment"
-        android:name="com.jumia.myapplication.ui.products.ProductDetailFragment"
+        android:name="com.jumia.myapplication.ui.feed.ProductDetailFragment"
         tools:layout="@layout/fragment_product_detail" >
         <argument
             android:name="productId"
@@ -37,5 +28,33 @@
         android:name="com.jumia.myapplication.ui.myfashhub.MyFashHubFragment"
         android:label="fragment_my_fash_hub"
         tools:layout="@layout/fragment_my_fash_hub" />
+    <fragment
+        android:id="@+id/feedFragment"
+        android:name="com.jumia.myapplication.ui.feed.FeedFragment"
+        android:label="fragment_feed"
+        tools:layout="@layout/fragment_feed" >
+        <action
+            android:id="@+id/action_feedFragment_to_productDetailFragment"
+            app:destination="@id/productDetailFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
+    <fragment
+        android:id="@+id/releasedDrobsFragment"
+        android:name="com.jumia.myapplication.ui.releasedrobs.ReleasedDrobsFragment"
+        android:label="fragment_released_drobs"
+        tools:layout="@layout/fragment_released_drobs" />
+    <fragment
+        android:id="@+id/futureDrobsFragment"
+        android:name="com.jumia.myapplication.ui.futuredrobs.FutureDrobsFragment"
+        android:label="fragment_future_drobs"
+        tools:layout="@layout/fragment_future_drobs" />
+    <fragment
+        android:id="@+id/topRatedDrobsFragment"
+        android:name="com.jumia.myapplication.ui.toprateddrobs.TopRatedDrobsFragment"
+        android:label="fragment_top_rated_drobs"
+        tools:layout="@layout/fragment_top_rated_drobs" />
 
 </navigation>

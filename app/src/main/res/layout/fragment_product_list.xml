@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -10,29 +11,63 @@
         <import type="android.text.TextUtils" />
 
         <variable
+            name="homeFragment"
+            type="com.jumia.myapplication.ui.home.HomeFragment" />
+        <variable
             name="viewmodel"
-            type="com.jumia.myapplication.ui.products.ProductViewModel" />
+            type="com.jumia.myapplication.ui.home.HomeViewModel" />
 
     </data>
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.products.HomeFragment">
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/new_product_srl_refresh"
+    tools:context=".ui.home.HomeFragment">
+    <LinearLayout
+        android:id="@+id/homeContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        >
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/new_product_rv_all_invoices"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:id="@+id/layout_landing_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <include
+                layout="@layout/layout_landing_header"
+                app:homeFragment="@{homeFragment}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/home_frag_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
-            tools:itemCount="10"
-            tools:listitem="@layout/item_product_cards" />
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layout_landing_header">
+
+
+            <include
+                android:id="@+id/include_layout_home_body"
+                layout="@layout/layou_new_home_body"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="visible"
+                app:homeFragment="@{homeFragment}"
+                app:viewmodel="@{viewmodel}" />
+
+
+        </FrameLayout>
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

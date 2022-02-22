@@ -1,4 +1,4 @@
-package com.jumia.myapplication.ui.products
+package com.jumia.myapplication.ui.feed
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -13,10 +13,13 @@ import androidx.navigation.fragment.findNavController
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.GridLayoutManager
-import com.jumia.myapplication.databinding.FragmentProductListBinding
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.jumia.myapplication.databinding.FragmentFeedBinding
 import com.jumia.myapplication.ui.exception.ErrorMessageFactory
-import com.jumia.myapplication.ui.products.adapter.OnItemClickListener
-import com.jumia.myapplication.ui.products.adapter.ProductAdapter
+import com.jumia.myapplication.ui.feed.adapter.FeedStoryAdapter
+import com.jumia.myapplication.ui.feed.adapter.OnItemClickListener
+import com.jumia.myapplication.ui.feed.adapter.ProductAdapter
+import com.jumia.myapplication.ui.feed.adapter.StoryOnItemClickListener
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.flow.*
@@ -25,18 +28,19 @@ import kotlinx.coroutines.launch
 @InternalCoroutinesApi
 @ExperimentalPagingApi
 @AndroidEntryPoint
-class HomeFragment : Fragment(), OnItemClickListener {
+class FeedFragment : Fragment(), OnItemClickListener, StoryOnItemClickListener {
     @ExperimentalPagingApi
     private val productViewModel: ProductViewModel by activityViewModels()
-    private lateinit var viewDataBinding: FragmentProductListBinding
+    private lateinit var viewDataBinding: FragmentFeedBinding
     private lateinit var adapter: ProductAdapter
+    private lateinit var feedStoryAdapter: FeedStoryAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-        viewDataBinding = FragmentProductListBinding.inflate(inflater, container, false).apply {
+        viewDataBinding = FragmentFeedBinding.inflate(inflater, container, false).apply {
             lifecycleOwner = viewLifecycleOwner
             viewmodel = productViewModel
         }
@@ -86,6 +90,25 @@ class HomeFragment : Fragment(), OnItemClickListener {
         viewDataBinding.newProductRvAllInvoices.layoutManager =
             GridLayoutManager(requireContext(), 2)
         viewDataBinding.newProductRvAllInvoices.adapter = adapter
+
+        feedStoryAdapter = FeedStoryAdapter(
+            listOf(
+                FeedStoryModel(
+                    "",
+                    "https://i.imgur.com/N0XsVNk.png",
+                    true,
+                    ""
+                ),
+                FeedStoryModel("", "https://i.imgur.com/N0XsVNk.png", true, ""),
+                FeedStoryModel("", "https://i.imgur.com/N0XsVNk.png", false, ""),
+                FeedStoryModel("", "https://i.imgur.com/N0XsVNk.png", false, ""),
+                FeedStoryModel("", "https://i.imgur.com/N0XsVNk.png", false, ""),
+                FeedStoryModel("", "https://i.imgur.com/N0XsVNk.png", false, ""),
+                FeedStoryModel("", "https://i.imgur.com/N0XsVNk.png", false, "")
+            ), this
+        )
+
+        viewDataBinding.feedStoriesRV.adapter = feedStoryAdapter
     }
 
     private fun refreshView() {
@@ -97,7 +120,11 @@ class HomeFragment : Fragment(), OnItemClickListener {
         lifecycleScope.launch {
             productViewModel.getProducts(
             ).catch {
-                Toast.makeText(requireContext(), ErrorMessageFactory.create(requireActivity(),it), Toast.LENGTH_LONG).show()
+                Toast.makeText(
+                    requireContext(),
+                    ErrorMessageFactory.create(requireActivity(), it),
+                    Toast.LENGTH_LONG
+                ).show()
             }.collectLatest {
                 adapter.submitData(it)
                 adapter.notifyDataSetChanged()
@@ -107,7 +134,7 @@ class HomeFragment : Fragment(), OnItemClickListener {
 
     private fun openProductDetailFragment(productId: Int) {
         val action =
-            HomeFragmentDirections.actionProductListFragmentToProductDetailFragment(
+            FeedFragmentDirections.actionFeedFragmentToProductDetailFragment(
                 productId
             )
         findNavController().navigate(action)

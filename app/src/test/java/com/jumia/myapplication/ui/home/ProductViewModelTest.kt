@@ -1,10 +1,11 @@
-package com.jumia.myapplication.ui.products
+package com.jumia.myapplication.ui.home
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
 import androidx.paging.ExperimentalPagingApi
 import com.jumia.myapplication.domain.Product
 import com.jumia.myapplication.infrastructure.ProductRepo
+import com.jumia.myapplication.ui.feed.ProductViewModel
 import com.jumia.myapplication.ui.util.state.Resource
 import com.mindorks.kotlinFlow.utils.TestCoroutineRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
