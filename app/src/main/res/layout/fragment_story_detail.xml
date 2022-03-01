@@ -3,12 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".StoryDetailFragment">
+    tools:context="com.jumia.myapplication.ui.feed.StoryDetailFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <VideoView
+        android:id="@+id/videoView1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        />
 
 </FrameLayout>

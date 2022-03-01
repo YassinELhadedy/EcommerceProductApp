@@ -13,12 +13,20 @@
     <string name="delivering_to">Delivery to,</string>
     <string name="write_the_store_name">Write the store name</string>
     <string name="what_would_like_to_order">What would you like to order...</string>
-    <string name="food">Food</string>
-    <string name="pharmacy">Pharmacy</string>
-    <string name="supermarket">Supermarket</string>
-    <string name="send_package">Send Thing</string>
+    <string name="food">Feed</string>
+    <string name="pharmacy">Released drobs</string>
+    <string name="supermarket">Future drobs</string>
+    <string name="send_package">On Sail</string>
+    <string name="free">Free</string>
+    <string name="deliver">Delivery</string>
+    <string name="special_offers">Special Offers</string>
+    <string name="promoted">Promoted</string>
+    <string name="min_order">Min order</string>
+    <string name="k">K</string>
+    <string name="search">Search</string>
+    <string name="search_in">Search in</string>
+    <string name="find_store">Find store</string>
+    <string name="clear_all">Clear all</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-
-
 </resources>

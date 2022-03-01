@@ -24,6 +24,7 @@ class ProductDetailFragment : Fragment() {
     private val productViewModel: ProductViewModel by activityViewModels()
     private val mWaitingDialog: WaitingDialog by lazy { WaitingDialog(requireActivity()) }
     private lateinit var viewDataBinding: FragmentProductDetailBinding
+
     // Creating Object of ViewPagerAdapter
     private lateinit var mViewPagerAdapter: ProductDetailAdapter
 
@@ -46,7 +47,7 @@ class ProductDetailFragment : Fragment() {
         productViewModel.productInfo(safeArgs.productId)
     }
 
-    private fun initViewPager(images:List<String>){
+    private fun initViewPager(images: List<String>) {
         mViewPagerAdapter = ProductDetailAdapter(images)
         viewDataBinding.viewpager.adapter = mViewPagerAdapter
     }
@@ -57,7 +58,16 @@ class ProductDetailFragment : Fragment() {
                 Status.SUCCESS -> {
                     mWaitingDialog.dismissDialog()
                     if (it.data is Product) {
-                        initViewPager(it.data.imageList ?: emptyList())
+//                        initViewPager(it.data.imageList ?: emptyList())
+                        initViewPager(
+                            listOf(
+                                "https://dlskits.com/wp-content/uploads/2018/01/Chelsea-Dream-League-Soccer-Logo.png",
+                                "https://dlskits.com/wp-content/uploads/2018/01/Chelsea-Dream-League-Soccer-Logo.png",
+                                "https://dlskits.com/wp-content/uploads/2018/01/Chelsea-Dream-League-Soccer-Logo.png",
+                                "https://dlskits.com/wp-content/uploads/2018/01/Chelsea-Dream-League-Soccer-Logo.png"
+                            )
+                        )
+
                     }
                 }
                 Status.ERROR -> {

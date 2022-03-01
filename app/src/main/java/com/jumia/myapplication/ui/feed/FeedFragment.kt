@@ -91,7 +91,7 @@ class FeedFragment : Fragment(), OnItemClickListener, StoryOnItemClickListener {
     private fun initAdapter() {
         adapter = ProductAdapter(requireContext(), this)
         viewDataBinding.newProductRvAllInvoices.layoutManager =
-            GridLayoutManager(requireContext(), 2)
+            GridLayoutManager(requireContext(), 1)
         viewDataBinding.newProductRvAllInvoices.adapter = adapter
 
         feedStoryAdapter = FeedStoryAdapter(

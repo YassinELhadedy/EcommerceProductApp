@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.jumia.myapplication.domain.Store" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/storeStatuscl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:background="@drawable/ic_closed"
+        android:visibility="visible"
+        tools:visibility="visible"
+        android:paddingStart="30dp"
+        android:paddingEnd="30dp"
+        app:storeBackground="@{item.status}"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp">
+
+        <TextView
+            android:id="@+id/tv_busy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:textAlignment="viewStart"
+            android:includeFontPadding="false"
+            tools:text="Open\nfrom 8:00 to 22:00"
+            android:text="@{item.openingHours}"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="HardcodedText,SpUsage" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

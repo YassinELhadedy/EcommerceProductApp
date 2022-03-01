@@ -136,11 +136,38 @@ dependencies {
 
     //hilt
     implementation "com.google.dagger:hilt-android:$hilt_version"
+    implementation project(path: ':storyview')
     kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
 
     implementation "com.microsoft.appcenter:appcenter-analytics:${appCenterSdkVersion}"
     implementation "com.microsoft.appcenter:appcenter-crashes:${appCenterSdkVersion}"
 
+    //Like Btn
+    implementation 'com.github.jd-alexander:LikeButton:0.2.3'
+
+    // dependency for exoplayer
+
+    implementation 'com.google.android.exoplayer:exoplayer:2.17.0'
+
+// for core support in exoplayer.
+
+    implementation 'com.google.android.exoplayer:exoplayer-core:2.17.0'
+
+// for adding dash support in our exoplayer.
+
+    implementation 'com.google.android.exoplayer:exoplayer-dash:2.17.0'
+
+// for adding hls support in exoplayer.
+
+    implementation 'com.google.android.exoplayer:exoplayer-hls:2.17.0'
+
+// for smooth streaming of video in our exoplayer.
+
+    implementation 'com.google.android.exoplayer:exoplayer-smoothstreaming:2.17.0'
+
+// for generating default ui of exoplayer
+
+    implementation 'com.google.android.exoplayer:exoplayer-ui:2.17.0'
 
     // Network
     implementation "com.squareup.okhttp3:okhttp:${okhttpVersion}"
