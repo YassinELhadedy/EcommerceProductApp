@@ -1,8 +1,10 @@
 package com.jumia.myapplication.ui.util
 
 import android.graphics.drawable.Drawable
+import android.net.Uri
 import android.view.View
 import android.widget.ImageView
+import android.widget.VideoView
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
@@ -15,6 +17,13 @@ import de.hdodenhof.circleimageview.CircleImageView
  * Data Binding adapters specific to the app.
  * Note BindingAdapter in Kotlin must be Top Level functions
  */
+
+@BindingAdapter("videoUrl")
+fun loadVideo(videoView: VideoView, url: String?) {
+    if (!url.isNullOrEmpty()) {
+        videoView.setVideoURI(Uri.parse(url))
+    }
+}
 
 @BindingAdapter("imageUrl")
 fun loadImage(imageView: ImageView, url: String?) {
@@ -55,7 +64,7 @@ fun loadImageUrl(
 @BindingAdapter("storeBackground")
 fun getStoreBackground(view: View, storeStatus: StoreStatus) {
     view.background = when (storeStatus) {
-        StoreStatus.CLOSED -> ContextCompat.getDrawable(view.context, R.drawable.ic_closed)
+        StoreStatus.CLOSED -> ContextCompat.getDrawable(view.context, R.drawable.ic_close)
         StoreStatus.OPEN -> ContextCompat.getDrawable(view.context, R.drawable.ic_open)
         StoreStatus.BUSY -> ContextCompat.getDrawable(view.context, R.drawable.ic_busy_store)
         StoreStatus.CLOSE_SOON-> ContextCompat.getDrawable(view.context, R.drawable.ic_within_store)

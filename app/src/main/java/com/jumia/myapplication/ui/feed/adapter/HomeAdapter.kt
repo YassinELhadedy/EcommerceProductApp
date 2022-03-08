@@ -42,7 +42,7 @@ class ProductAdapter(val context: Context, private val listener: OnItemClickList
         )
         productViewHolder.itemView.setSafeOnClickListener {
             listener.onItemClick(Navigator(NavigationJourney.PRODUCTDETAIL, Bundle().apply {
-                putString("SKU", getItem(position)?.sku)
+                putString("SKU", getItem(position)?.name)
             }))
         }
     }

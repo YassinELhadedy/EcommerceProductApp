@@ -93,20 +93,20 @@ class FeedFragment : Fragment(), OnItemClickListener, StoryOnItemClickListener {
         viewDataBinding.newProductRvAllInvoices.layoutManager =
             GridLayoutManager(requireContext(), 1)
         viewDataBinding.newProductRvAllInvoices.adapter = adapter
-
-        feedStoryAdapter = FeedStoryAdapter(
-            listOf(
-                FeedStoryModel("", "https://i.imgur.com/N0XsVNk.png", true, ""),
-                FeedStoryModel("", "https://i.imgur.com/N0XsVNk.png", true, ""),
-                FeedStoryModel("", "https://i.imgur.com/N0XsVNk.png", false, ""),
-                FeedStoryModel("", "https://i.imgur.com/N0XsVNk.png", false, ""),
-                FeedStoryModel("", "https://i.imgur.com/N0XsVNk.png", false, ""),
-                FeedStoryModel("", "https://i.imgur.com/N0XsVNk.png", false, ""),
-                FeedStoryModel("", "https://i.imgur.com/N0XsVNk.png", false, "")
-            ), this
-        )
-
-        viewDataBinding.feedStoriesRV.adapter = feedStoryAdapter
+//
+//        feedStoryAdapter = FeedStoryAdapter(
+//            listOf(
+//                FeedStoryModel("", "https://i.imgur.com/N0XsVNk.png", true, ""),
+//                FeedStoryModel("", "https://i.imgur.com/N0XsVNk.png", true, ""),
+//                FeedStoryModel("", "https://i.imgur.com/N0XsVNk.png", false, ""),
+//                FeedStoryModel("", "https://i.imgur.com/N0XsVNk.png", false, ""),
+//                FeedStoryModel("", "https://i.imgur.com/N0XsVNk.png", false, ""),
+//                FeedStoryModel("", "https://i.imgur.com/N0XsVNk.png", false, ""),
+//                FeedStoryModel("", "https://i.imgur.com/N0XsVNk.png", false, "")
+//            ), this
+//        )
+//
+//        viewDataBinding.feedStoriesRV.adapter = feedStoryAdapter
     }
 
     private fun refreshView() {
