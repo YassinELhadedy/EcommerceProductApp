@@ -59,8 +59,52 @@ jobs:
           name: lint-report
           path: '**/build/reports/lint-results-*'
 
+
+  sonarqube_job:
+    needs: [ unit_test_job ]
+    name: sonarqube
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set Up JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
+
+
+      - name: Cache SonarQube packages
+        uses: actions/cache@v1
+        with:
+          path: ~/.sonar/cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
+
+      - name: Cache Gradle packages
+        uses: actions/cache@v1
+        with:
+          path: ~/.gradle/caches
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
+          restore-keys: ${{ runner.os }}-gradle
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      - name: Check with Gradle
+        run: ./gradlew check
+
+      - name: Upload coverage report
+        run: bash <(curl -s https://codecov.io/bash)
+
+      - name: Build and analyze
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+        run: ./gradlew sonarqube
+
   firebasetestlab_job:
-    needs: [ unit_test_job, lint_job ]
+    needs: [ unit_test_job, lint_job, sonarqube_job ]
     name: Assemble and Upload to Firebase Test Lab
     runs-on: ubuntu-latest
     steps:

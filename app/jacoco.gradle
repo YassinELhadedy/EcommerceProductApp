@@ -7,6 +7,16 @@ ext {
             '**/R.class',
             '**/R$*.class',
             '**/BuildConfig.*',
+            'android/databinding/**/*.class',
+            '**/android/databinding/*Binding.class',
+            '**/android/databinding/*',
+            '**/androidx/databinding/*',
+            '**/BR.*',
+            '**/Manifest*.*',
+            '**/*Test*.*',
+            'android/**/*.*',
+            '**/*$Result.*',
+            '**/*$Result$*.*'
     ]
 }
 
@@ -26,25 +36,45 @@ tasks.withType(Test) {
     finalizedBy jacocoTestReport // report is always generated after tests run
 }
 
-task jacocoTestReport(type: JacocoReport, dependsOn: ['testReleaseUnitTest']) {
-    group = "Reporting"
-    description = "Generate Jacoco coverage reports for Debug build"
+//task jacocoTestReport(type: JacocoReport, dependsOn: ['testReleaseUnitTest']) {
+//    group = "Reporting"
+//    description = "Generate Jacoco coverage reports for Debug build"
+//
+//    reports {
+//        xml.enabled = true
+//        html.enabled = true
+//        csv.enabled false
+//        html.outputLocation = layout.buildDirectory.dir('jacocoHtml')
+//    }
+//
+//    def debugTree = fileTree(dir: "${buildDir}/intermediates/javac/debug/classes", excludes: coverageExclusions)
+//    def mainSrc = "/src/main/java"
+//
+//    additionalSourceDirs.from = files(mainSrc)
+//    sourceDirectories.from = files([mainSrc])
+//    classDirectories.from = files([debugTree])
+//
+//    executionData.from = files("$buildDir/jacoco/testReleaseUnitTest.exec")
+//}
 
+task jacocoTestReport(type:JacocoReport, dependsOn: ['testDebugUnitTest']){
     reports {
-        xml.enabled = true
-        html.enabled = true
         csv.enabled false
-        html.outputLocation = layout.buildDirectory.dir('jacocoHtml')
+        html.enabled false
+        xml {
+            enabled true
+            destination file("${buildDir}/reports/jacoco/report.xml")
+        }
     }
 
-    def debugTree = fileTree(dir: "${buildDir}/intermediates/javac/debug/classes", excludes: coverageExclusions)
-    def mainSrc = "/src/main/java"
-
-    additionalSourceDirs.from = files(mainSrc)
-    sourceDirectories.from = files([mainSrc])
-    classDirectories.from = files([debugTree])
-
-    executionData.from = files("$buildDir/jacoco/testReleaseUnitTest.exec")
+    def classes = fileTree(dir: "${buildDir}/intermediates/javac/debug/classes", excludes: coverageExclusions)
+    sourceDirectories.setFrom(files("${project.projectDir}/src/main/java"))
+    classDirectories.setFrom(files([classes]))
+    executionData.setFrom(fileTree(dir: "$buildDir", includes: [
+            "/outputs/unit_test_code_coverage/debugUnitTest/testDebugUnitTest.exec",
+    ]))
 }
+
+
 //ref
 //https://androidadepth.blogspot.com/2021/01/android-and-sonarqube-with-code-coverage.html

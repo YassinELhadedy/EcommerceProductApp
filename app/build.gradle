@@ -16,6 +16,8 @@ sonarqube {
         property "sonar.projectKey", "YassinELhadedy_EcommerceProductApp"
         property "sonar.projectName", "EcommerceProductApp"
         property "sonar.organization", "yassinelhadedy"
+        property "sonar.projectVersion", "${version}-${buildNumber}"
+
 //        property "sonar.login", "7fdd33dfd1f71f9c15a2c62a7f7c836ec47c9cf3"
         property "sonar.tests", "src/test/java"
         property "sonar.test.inclusions", "**/*Test*/**"
@@ -30,11 +32,13 @@ sonarqube {
         property "sonar.java.coveragePlugin", "jacoco"
         property "sonar.junit.reportPaths", "**/test-results/**/*.xml"
 //        property "sonar.junit.reportPaths", "app/build/test-results/testReleaseUnitTest/*.xml"
-        property "sonar.coverage.jacoco.xmlReportPaths", "**/jacocoTestReport/jacocoTestReport.xml"
+        property "sonar.coverage.jacoco.xmlReportPaths", "${buildDir}/reports/jacoco/report.xml"
+
         property "sonar.groovy.jacoco.reportPath", "**/jacocoTestReport/jacocoTestReport.xml"
         property "sonar.coverage.exclusions", "${coverageExclusions.join(', ')}"
     }
 }
+check.dependsOn jacocoTestReport
 
 android {
     compileSdk 30
@@ -85,6 +89,8 @@ android {
 }
 
 ext {
+    buildNumber = System.getProperty("build.number")
+
     okhttpVersion = '4.6.0'
     glideVersion = '4.12.0'
     retrofitVersion = '2.9.0'
